@@ -1,0 +1,197 @@
+/* ---- Notifications: muted markers, permission prompt, settings ---------------- */
+
+/* Muted conversations in the DM list */
+.dm-item.is-muted {
+  opacity: 0.55;
+}
+
+.dm-muted {
+  display: inline-block;
+  margin-inline-start: 6px;
+  vertical-align: -2px;
+  color: var(--text-faint);
+}
+
+.rail-tooltip-sub svg {
+  vertical-align: -2px;
+}
+
+/* Role mentions in the role colour */
+.mention.is-role.has-color {
+  background: color-mix(in srgb, var(--role-color) 16%, transparent);
+  color: color-mix(in srgb, var(--role-color) 75%, #fff);
+}
+
+.ac-role {
+  background: color-mix(in srgb, currentColor 16%, transparent);
+}
+
+/* Friendly bar that asks for the browser permission */
+.notify-prompt {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 8px 12px 8px 16px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-main));
+  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--accent) 30%, transparent);
+  color: var(--text);
+  z-index: 5;
+}
+
+.notify-prompt-icon {
+  flex-shrink: 0;
+  color: var(--accent-text);
+}
+
+.notify-prompt-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.notify-prompt-text strong {
+  color: var(--text-strong);
+  font-size: var(--fs-md);
+}
+
+.notify-prompt-text span {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+@media (max-width: 640px) {
+  .notify-prompt {
+    flex-wrap: wrap;
+  }
+
+  .notify-prompt-text {
+    flex-basis: calc(100% - 64px);
+  }
+}
+
+/* Settings */
+.notify-scope-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 19px;
+  margin-inline-start: 8px;
+  padding: 0 7px;
+  border-radius: 5px;
+  background: rgba(90, 176, 242, 0.1);
+  color: #8cc8f5;
+  font-size: 10.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  vertical-align: 2px;
+}
+
+.notify-permission {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+  padding: 14px 18px;
+}
+
+.notify-permission-icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  color: var(--accent-text);
+}
+
+.notify-permission.is-denied .notify-permission-icon {
+  color: var(--danger-text);
+}
+
+.notify-permission-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1.4;
+}
+
+.notify-permission-text strong {
+  color: var(--text-strong);
+}
+
+.notify-permission-text span {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+@media (max-width: 640px) {
+  .notify-permission {
+    flex-wrap: wrap;
+  }
+}
+
+.notify-volume {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 4px 0 18px;
+  color: var(--text-muted);
+}
+
+.notify-volume .slider-wrap {
+  flex: 1;
+}
+
+.notify-overrides {
+  padding: 4px 0;
+}
+
+.notify-override {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 10px 16px;
+}
+
+.notify-override + .notify-override {
+  box-shadow: inset 0 1px 0 var(--line);
+}
+
+.notify-override-channel {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--bg-hover);
+  color: var(--text-muted);
+}
+
+.notify-override-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.notify-override-text strong {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.notify-override-text span {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+.notify-empty {
+  margin: 0 0 14px;
+  color: var(--text-faint);
+  font-size: var(--fs-sm);
+}

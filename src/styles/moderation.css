@@ -1,0 +1,298 @@
+/* ---- Moderation: report dialog, bans, ONYX admin, suspension screen ---------- */
+
+.report-card .muted,
+.report-person .muted,
+.ban-row .muted {
+  color: var(--text-faint);
+}
+
+/* Report dialog */
+.report-dialog .confirm-msg {
+  margin-top: 0;
+}
+
+.report-note {
+  margin: 0 0 14px;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+
+.report-h {
+  margin: 0 0 8px;
+  color: var(--text-strong);
+  font-size: var(--fs-md);
+  font-weight: 650;
+}
+
+.report-reasons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.report-reason {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.025);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  text-align: start;
+  transition: background var(--dur-1), box-shadow var(--dur-2);
+}
+
+.report-reason:hover {
+  background: var(--bg-hover);
+}
+
+.report-reason.is-checked {
+  background: var(--danger-soft);
+  box-shadow: inset 0 0 0 1px var(--danger);
+  color: var(--text-strong);
+}
+
+.report-reason .radio-dot {
+  width: 16px;
+  height: 16px;
+}
+
+.report-reason.is-checked .radio-dot {
+  box-shadow: inset 0 0 0 5px var(--danger);
+}
+
+.report-urgent {
+  margin: -4px 0 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--warning-soft);
+  color: var(--text-strong);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+
+.report-error {
+  margin: 10px 0 0;
+  color: var(--danger-text);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+
+.check-list.is-consequence {
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.check-list.is-consequence li::before {
+  background: var(--danger-soft);
+  border-radius: 50%;
+}
+
+/* Bans (server settings) and suspended accounts (admin) */
+.ban-reason {
+  flex: 1 1 220px;
+  min-width: 0;
+  color: var(--text);
+  font-size: var(--fs-sm);
+  overflow-wrap: anywhere;
+}
+
+/* ONYX admin */
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.admin-loading {
+  padding: 24px 0;
+  color: var(--text-faint);
+  text-align: center;
+}
+
+.admin-suspend-form {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-suspend-form .input {
+  flex: 1;
+  min-width: 0;
+}
+
+.report-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.report-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--bg-raised);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.report-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-sm);
+}
+
+.report-chip-reason {
+  background: var(--danger-soft);
+  box-shadow: inset 0 0 0 1px var(--danger);
+  color: var(--danger-text);
+}
+
+.report-chip-danger {
+  margin-inline-start: 6px;
+  background: var(--danger-soft);
+  box-shadow: none;
+  color: var(--danger-text);
+  vertical-align: middle;
+}
+
+.report-people {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.report-person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.report-person-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  color: var(--text-strong);
+  font-size: var(--fs-sm);
+}
+
+.report-person-label {
+  display: block;
+  color: var(--text-faint);
+  font-size: var(--fs-2xs);
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.report-content {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--bg-well);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.report-where {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  color: var(--text-faint);
+  font-size: var(--fs-xs);
+}
+
+.report-text {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.report-text + .report-text {
+  margin-top: 6px;
+}
+
+.report-files {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-sm);
+}
+
+.report-files li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.report-files .truncate {
+  flex: 1;
+}
+
+.report-details {
+  margin: 0;
+  color: var(--text);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-sm);
+}
+
+/* Suspension screen */
+.auth-suspension {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--bg-well);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.auth-suspension-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text-faint);
+  font-size: var(--fs-xs);
+  font-weight: 650;
+}
+
+.auth-suspension p {
+  margin: 0;
+  color: var(--text-strong);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .report-reasons,
+  .report-people {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* Keep report metadata legible on dark themes. */
+.report-card,.report-person,.ban-row,.admin-view{--text-faint:var(--text);--text-muted:var(--text)}

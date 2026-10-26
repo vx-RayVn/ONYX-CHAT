@@ -1,0 +1,1024 @@
+/* ==========================================================================
+   Profiles: popout card, full profile, self menu, DM profile panel
+   ========================================================================== */
+
+.profile-pop {
+  border-radius: 16px;
+  width: 340px;
+  max-width: calc(100vw - 24px);
+  max-height: min(680px, calc(100vh - 24px));
+  overflow-y: auto;
+}
+
+.pcard {
+  --pc-avatar: 84px;
+  --pc-ring: 6px;
+  --pc-banner: 122px;
+  --pc-left: 16px;
+  position: relative;
+  width: 340px;
+  max-width: 100%;
+  background: var(--bg-overlay);
+  overflow: hidden;
+  --surface: var(--bg-overlay);
+}
+
+.pcard-preview {
+  border-radius: 16px;
+  box-shadow: var(--shadow-pop), inset 0 0 0 1px var(--line-2);
+}
+
+.pcard-panel {
+  width: 100%;
+  background: transparent;
+  --pc-avatar: 80px;
+  --pc-banner: 120px;
+  --surface: var(--bg-sidebar);
+}
+
+.pcard.is-themed {
+  padding: 4px;
+  background: linear-gradient(170deg, var(--pc-a), var(--pc-b));
+  --surface: #0e1214;
+}
+
+.pcard-panel.is-themed {
+  padding: 0;
+}
+
+.pcard-banner {
+  position: relative;
+  height: var(--pc-banner);
+  -webkit-mask: radial-gradient(circle calc(var(--pc-avatar) / 2 + var(--pc-ring)) at calc(var(--pc-left) + var(--pc-ring) + var(--pc-avatar) / 2) 100%, transparent 98.5%, #000 100%);
+  mask: radial-gradient(circle calc(var(--pc-avatar) / 2 + var(--pc-ring)) at calc(var(--pc-left) + var(--pc-ring) + var(--pc-avatar) / 2) 100%, transparent 98.5%, #000 100%);
+}
+
+.pcard.is-themed .pcard-banner {
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+
+.pcard-banner .banner {
+  position: absolute;
+  inset: 0;
+}
+
+.pcard-top {
+  position: relative;
+  height: calc(var(--pc-avatar) / 2 + 10px);
+}
+
+.pcard.is-themed .pcard-inner {
+  border-radius: 0 0 12px 12px;
+}
+
+.pcard-avatar {
+  position: absolute;
+  inset-inline-start: calc(var(--pc-left) + var(--pc-ring));
+  top: calc(var(--pc-avatar) / -2);
+  z-index: 2;
+}
+
+.pcard-top-tools {
+  position: absolute;
+  inset-inline-end: 10px;
+  top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pcard-top-tools .icon-btn {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--text);
+}
+
+.pcard-top-tools .icon-btn:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.pcard-pending {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+
+.pcard-inner {
+  position: relative;
+  z-index: 1;
+  padding: 2px 16px 16px;
+}
+
+.pcard-names {
+  margin-bottom: 12px;
+}
+
+.pcard-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.pcard-username {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 1px;
+  color: var(--text);
+  font-size: var(--fs-md);
+}
+
+.pcard-dot {
+  color: var(--text-faint);
+  font-size: 10px;
+}
+
+.pcard-badges {
+  display: inline-flex;
+  margin-top: 10px;
+  padding: 4px 6px;
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.pcard-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--text);
+  font-size: var(--fs-md);
+  overflow-wrap: anywhere;
+}
+
+.pcard-status .emoji {
+  font-size: 16px;
+}
+
+.pcard-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 14px;
+  box-shadow: inset 0 1px 0 var(--line);
+}
+
+.pcard-h {
+  margin-bottom: 6px;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pcard-bio {
+  color: var(--text);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  max-height: 180px;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+}
+
+.pcard-since {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--text);
+  font-size: 13.5px;
+}
+
+.since-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.since-item .server-icon {
+  border-radius: 5px;
+}
+
+.since-sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-faint);
+}
+
+.role-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.role-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--text);
+  font-size: 12.5px;
+  font-weight: 550;
+  white-space: nowrap;
+}
+
+.role-chip-add {
+  width: 24px;
+  padding: 0;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.role-chip-add:hover {
+  color: var(--text-strong);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.role-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.role-dot.lg {
+  width: 14px;
+  height: 14px;
+}
+
+.pcard-note {
+  display: block;
+  width: calc(100% + 16px);
+  margin: -4px -8px 0;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 7px;
+  resize: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.pcard-note::placeholder {
+  color: var(--text-faint);
+}
+
+.pcard-note:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.pcard-note:focus {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.pcard-msg {
+  margin-top: 16px;
+}
+
+.pcard-msg input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.32);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--text-strong);
+  font-size: var(--fs-md);
+}
+
+.pcard-msg input::placeholder {
+  color: var(--text-faint);
+}
+
+.pcard-msg input:focus {
+  box-shadow: inset 0 0 0 1px var(--accent-line), 0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.pcard-expand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+
+/* Activity card */
+.activity {
+  padding: 10px 12px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.activity-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.activity.is-streaming .activity-label {
+  color: #c4b5fd;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--danger);
+  box-shadow: 0 0 0 3px var(--danger-soft);
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+.activity-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.activity-art {
+  position: relative;
+  overflow: hidden;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.activity-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.activity-text strong {
+  color: var(--text-strong);
+  font-size: var(--fs-md);
+  font-weight: 650;
+}
+
+.activity-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  color: var(--accent-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.activity-btn {
+  margin-top: 10px;
+}
+
+/* Self menu */
+.self-menu {
+  margin-top: 14px;
+  padding: 6px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.26);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.self-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 36px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: var(--text);
+  font-size: var(--fs-md);
+  font-weight: 550;
+  text-align: start;
+  transition: background var(--dur-1), color var(--dur-1);
+}
+
+.self-menu-item:hover {
+  background: var(--bg-hover-strong);
+  color: var(--text-strong);
+}
+
+.self-menu-item small {
+  display: block;
+  margin-top: 1px;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 450;
+}
+
+.self-menu-item .grow {
+  display: flex;
+  flex-direction: column;
+}
+
+.self-status.is-active {
+  background: var(--bg-hover);
+  color: var(--text-strong);
+}
+
+.self-status .status-glyph {
+  margin: 0 2px;
+}
+
+.self-menu-chev {
+  color: var(--text-faint);
+}
+
+.self-menu-sep {
+  height: 1px;
+  margin: 4px 6px;
+  background: var(--line);
+}
+
+.self-custom {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.self-custom .self-menu-item {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Full profile modal */
+.modal.profile-modal {
+  max-width: 640px;
+  /* Same corner radius as profile cards, so frame ornaments sit exactly in the corners. */
+  border-radius: 16px;
+}
+
+.profile-modal .modal-body,
+.lightbox .modal-body,
+.qs .modal-body {
+  padding: 0;
+}
+
+.pmodal {
+  border-radius: 16px;
+  --pc-avatar: 120px;
+  --pc-ring: 7px;
+  --pc-left: 24px;
+  --pc-banner: 200px;
+  position: relative;
+  --surface: var(--bg-overlay);
+}
+
+.pmodal.is-themed {
+  padding: 5px;
+  background: linear-gradient(170deg, var(--pc-a), var(--pc-b));
+  --surface: #0e1214;
+}
+
+.pmodal-banner {
+  position: relative;
+  height: var(--pc-banner);
+  -webkit-mask: radial-gradient(circle calc(var(--pc-avatar) / 2 + var(--pc-ring)) at calc(var(--pc-left) + var(--pc-ring) + var(--pc-avatar) / 2) 100%, transparent 98.5%, #000 100%);
+  mask: radial-gradient(circle calc(var(--pc-avatar) / 2 + var(--pc-ring)) at calc(var(--pc-left) + var(--pc-ring) + var(--pc-avatar) / 2) 100%, transparent 98.5%, #000 100%);
+}
+
+.pmodal.is-themed .pmodal-banner {
+  border-radius: 14px 14px 0 0;
+  overflow: hidden;
+}
+
+.pmodal-banner .banner {
+  position: absolute;
+  inset: 0;
+}
+
+.pmodal-head {
+  position: relative;
+  min-height: 76px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 14px 20px 0 calc(var(--pc-avatar) + 48px);
+}
+
+.pmodal.is-themed .pmodal-body {
+  border-radius: 0 0 14px 14px;
+}
+
+.pmodal-avatar {
+  position: absolute;
+  inset-inline-start: calc(var(--pc-left) + var(--pc-ring));
+  top: calc(var(--pc-avatar) / -2);
+}
+
+.pmodal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.pmodal-more {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pmodal-body {
+  position: relative;
+  z-index: 1;
+  padding: 10px 24px 24px;
+}
+
+.pmodal-names h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.pmodal-activity {
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: 13.5px;
+}
+
+.pmodal-activity b {
+  color: var(--text);
+}
+
+.pmodal-tabs {
+  display: flex;
+  gap: 22px;
+  margin-top: 22px;
+  box-shadow: inset 0 -1px 0 var(--line);
+  overflow-x: auto;
+}
+
+.ptab {
+  position: relative;
+  height: 40px;
+  color: var(--text-muted);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ptab:hover {
+  color: var(--text);
+}
+
+.ptab.is-active {
+  color: var(--text-strong);
+}
+
+.ptab.is-active::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.pmodal-content {
+  min-height: 170px;
+  max-height: 340px;
+  overflow-y: auto;
+  padding-top: 16px;
+}
+
+.pmodal-about {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pmodal-about .pcard-h {
+  margin-top: 12px;
+}
+
+.pmodal-empty {
+  padding: 28px 0;
+  color: var(--text-faint);
+  text-align: center;
+}
+
+.pmodal-note {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-size: var(--fs-md);
+}
+
+.mutual-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  text-align: start;
+  color: var(--text);
+  transition: background var(--dur-1);
+  --surface: var(--bg-overlay);
+}
+
+.mutual-row:hover {
+  background: var(--bg-hover-strong);
+}
+
+.mutual-row strong {
+  display: block;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.mutual-row .grow span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 12.5px;
+}
+
+/* DM profile panel */
+.dm-profile {
+  width: 340px;
+  overflow-y: auto;
+  background: var(--bg-sidebar);
+  box-shadow: inset 1px 0 0 var(--line);
+  --surface: var(--bg-sidebar);
+}
+
+.dm-profile-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 12px 20px;
+}
+
+.collapse {
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 0 0 1px var(--line);
+  overflow: hidden;
+}
+
+.collapse-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 650;
+}
+
+.collapse-head:hover {
+  color: var(--text-strong);
+  background: var(--bg-hover);
+}
+
+.collapse-head svg {
+  color: var(--text-muted);
+  transition: transform var(--dur-2) var(--ease-out);
+}
+
+.collapse.is-open .collapse-head svg {
+  transform: rotate(180deg);
+}
+
+.collapse-body {
+  padding: 0 6px 6px;
+  --surface: var(--bg-sidebar);
+}
+
+/* ==========================================================================
+   One continuous profile design
+   A themed profile tints every inner part – sections, collapsibles,
+   buttons, inputs, tabs and the "full profile" link – from the same colours,
+   so nothing falls back to the default surface halfway down the card.
+   ========================================================================== */
+.pcard.is-themed,
+.pmodal.is-themed,
+.account-card.is-themed {
+  /* Themed profiles always sit on a dark veil: keep dark-scheme text tokens
+     even in the light app theme so names and texts stay readable. */
+  color-scheme: dark;
+  --text-strong: #f4f7f8;
+  --text: #d6dee1;
+  --text-muted: #a3b0b5;
+  --text-faint: #7b898e;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.11);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --bg-hover: rgba(255, 255, 255, 0.05);
+  --bg-hover-strong: rgba(255, 255, 255, 0.08);
+  --bg-well: rgba(0, 0, 0, 0.3);
+  --pc-surface: color-mix(in srgb, var(--pc-a) 15%, rgba(255, 255, 255, 0.035));
+  --pc-surface-2: color-mix(in srgb, var(--pc-a) 26%, rgba(255, 255, 255, 0.07));
+  --pc-line: color-mix(in srgb, var(--pc-a) 42%, rgba(255, 255, 255, 0.1));
+  --pc-accent: color-mix(in srgb, var(--pc-a) 45%, #ffffff);
+  color: var(--text);
+}
+
+.pcard.is-themed .pcard-top,
+.pcard.is-themed .pcard-inner,
+.pmodal.is-themed .pmodal-head,
+.pmodal.is-themed .pmodal-body {
+  background: var(--pc-veil, rgba(10, 13, 15, 0.6));
+}
+
+.is-themed :is(.activity, .pcard-status, .collapse, .pmodal-note, .pmodal-badge, .self-menu, .pcard-expand) {
+  background: var(--pc-surface);
+  box-shadow: inset 0 0 0 1px var(--pc-line);
+}
+
+.is-themed :is(.pcard-badges, .member-no) {
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 0 1px var(--pc-line);
+}
+
+.is-themed .role-chip {
+  background: var(--pc-surface);
+  box-shadow: inset 0 0 0 1px var(--pc-line);
+}
+
+.is-themed :is(.collapse-head, .mutual-row, .self-menu-item, .pcard-expand):hover,
+.is-themed .self-status.is-active {
+  background: var(--pc-surface-2);
+  color: var(--text-strong);
+}
+
+.is-themed .pcard-sections {
+  box-shadow: inset 0 1px 0 var(--pc-line);
+}
+
+.is-themed .self-menu-sep {
+  background: var(--pc-line);
+}
+
+.is-themed :is(.pcard-msg input, .pcard-note:focus) {
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 0 1px var(--pc-line);
+}
+
+.is-themed .pcard-msg input:focus {
+  box-shadow: inset 0 0 0 1px var(--pc-accent), 0 0 0 3px color-mix(in srgb, var(--pc-a) 30%, transparent);
+}
+
+.is-themed .btn-secondary {
+  background: var(--pc-surface-2);
+  box-shadow: inset 0 0 0 1px var(--pc-line);
+  color: var(--text-strong);
+}
+
+.is-themed .btn-secondary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--pc-a) 38%, rgba(255, 255, 255, 0.1));
+}
+
+.is-themed .activity-time,
+.is-themed .activity.is-streaming .activity-label {
+  color: var(--pc-accent);
+}
+
+.is-themed .pmodal-tabs {
+  box-shadow: inset 0 -1px 0 var(--pc-line);
+}
+
+.is-themed .ptab.is-active::after {
+  background: var(--pc-accent);
+}
+
+.is-themed .pcard-top-tools .icon-btn,
+.is-themed .pmodal-more {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+/* Extra content inside the card (mutual servers/friends, full profile) */
+.pcard-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.pcard-expand {
+  margin-top: 14px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.pcard-expand:hover {
+  background: var(--bg-hover-strong);
+}
+
+/* The entire DM side panel is the profile, including the space below its details. */
+.dm-profile {
+  display: flex;
+  padding: 0;
+  overflow: hidden;
+}
+
+.dm-profile .pcard-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  border-radius: 0;
+  background: var(--bg-overlay);
+  box-shadow: inset 0 0 0 1px var(--line);
+  --surface: var(--bg-overlay);
+}
+
+.dm-profile .pcard-banner,
+.dm-profile .pcard-top {
+  flex-shrink: 0;
+}
+
+.dm-profile .pcard-panel .pcard-inner {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  border-radius: 0;
+}
+
+.pcard-panel-footer {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  padding: 12px 16px 16px;
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+.is-themed .pcard-panel-footer {
+  background: var(--pc-veil);
+}
+
+.pcard-panel-footer .pcard-expand {
+  margin: 0;
+}
+
+.profile-connection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--pc-surface, var(--bg-hover));
+  color: var(--text-strong);
+}
+
+.profile-connection span { flex: 1; min-width: 0; }
+.profile-connection small { display: block; color: var(--text-muted); font-size: 11px; }
+.profile-connection:hover { background: var(--bg-hover-strong); }
+
+.dm-profile .pcard-panel.is-themed {
+  padding: 4px;
+  background: var(--pc-grad, linear-gradient(170deg, var(--pc-a), var(--pc-b)));
+  box-shadow: none;
+  --surface: #0e1214;
+}
+
+.dm-profile .collapse-body {
+  --surface: transparent;
+}
+
+.dm-profile .pcard-panel,
+.dm-profile .pframe,
+.dm-profile .pframe-border,
+.dm-profile .pframe-inner {
+  border-radius: 0 !important;
+}
+
+.display-name {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* Profile effects play behind avatar and text. */
+.pcard > .profile-effect,
+.pmodal > .profile-effect {
+  z-index: 0;
+}
+
+.pcard-top {
+  z-index: 1;
+}
+
+.pcard-name .plus-check,
+.pmodal-names h2 .plus-check {
+  margin-inline-start: 2px;
+}
+
+/* ---- Server badges on profiles ----------------------------------------------
+   Named chips under the server's name and icon – deliberately unlike the round
+   official ONYX badges. */
+.sbadges-h {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.sbadges-h .server-icon {
+  flex-shrink: 0;
+}
+
+.sbadge-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.sbadge-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  height: 26px;
+  padding: 0 9px 0 4px;
+  border-radius: 7px;
+  background: var(--pc-surface, rgba(255, 255, 255, 0.05));
+  box-shadow: inset 0 0 0 1px var(--pc-line, var(--line-2));
+  color: var(--text);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: default;
+}
+
+.sbadge-chip img {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.sbadge-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.sbadge-tip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 240px;
+}
+
+.sbadge-tip small {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.activity-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }

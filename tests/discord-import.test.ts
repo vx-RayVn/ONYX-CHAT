@@ -1,0 +1,31 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {templateCode,normalizeTemplate,mappedPermissions,importPayload,fingerprint,fetchTemplate,createDiscordImportHandler} from '../supabase/functions/_shared/discord-import.ts';
+const snapshot=()=>({name:'Example template',description:'Local fixture',serialized_source_guild:{name:'The squad',roles:[{id:0,name:'@everyone',permissions:'68608',color:0},{id:1,name:'Friends',permissions:String((1n<<20n)|(1n<<21n)|(1n<<46n)),color:65280,hoist:true}],channels:[{id:1,type:4,name:'Hangout',position:0,permission_overwrites:[{id:0,type:0,allow:'0',deny:'1024'}]},{id:2,type:0,name:'general',parent_id:1,position:1,topic:'Hello',permission_overwrites:[]},{id:3,type:2,name:'Private voice',parent_id:1,position:2,permission_overwrites:[{id:0,type:0,allow:'0',deny:'1024'},{id:1,type:0,allow:'1024',deny:'0'}]}]}});
+const server='12345678-1234-4123-8123-123456789012';
+test('Discord import accepts official template links and rejects invite links, lookalike hosts and unsafe paths',()=>{
+ for(const input of['abc-DE_12','https://discord.new/abc-DE_12','https://discord.com/template/abc-DE_12/'])assert.equal(templateCode(input),'abc-DE_12');
+ for(const input of['https://discord.gg/abc','http://discord.new/abc','https://discord.new.attacker.test/abc','https://user@discord.new/abc','https://discord.new:444/abc','https://discord.new/abc?x=1','https://discord.new/../abc','https://discord.com/api/v10/users/@me'])assert.throws(()=>templateCode(input));
+});
+test('templates retain roles, channel privacy and large permission bits without copying identities',()=>{
+ const template=normalizeTemplate(snapshot());assert.equal(template.name,'The squad');assert.equal(template.roles.length,2);assert.equal(template.categories.length,1);assert.equal(template.channels.length,2);assert.ok(mappedPermissions(String(1n<<46n)).includes('sendVoiceMessages'));assert.equal(template.roles[1].color,'#00ff00');
+ const payload=importPayload(template,server);assert.equal(payload.id,server);assert.deepEqual(payload.memberRoleIds,[]);assert.equal(payload.systemChannelId,null);assert.equal(payload.overwrites.length,2);assert.deepEqual(payload.overwrites[0].deny,['viewChannel']);assert.deepEqual(payload.overwrites[1].allow,['viewChannel']);assert.equal(payload.overwrites[0].roleId,payload.roles[0].id);assert.equal(payload.channels[0].categoryId,payload.categories[0].id);assert.equal(payload.overwrites.some(overwrite=>overwrite.channelId===payload.channels[0].id),false,'unsynced channels must not inherit a category allow/deny that Discord did not apply');assert.ok(!JSON.stringify(payload).includes('creator_id'));
+});
+test('unsupported channel types and member-specific access are never widened during import',()=>{
+ const source=snapshot();source.serialized_source_guild.channels.push({id:4,type:15,name:'Forum',position:3,permission_overwrites:[]});source.serialized_source_guild.channels[0].permission_overwrites.push({id:999,type:1,allow:'1024',deny:'0'});source.serialized_source_guild.channels.push({id:5,type:0,name:'Lobby',position:4,permission_overwrites:[]});const template=normalizeTemplate(source);assert.deepEqual(template.channels.map(channel=>channel.name),['Lobby']);assert.equal(template.skipped,4);
+});
+test('invalid roles, duplicate scopes and oversized templates fail closed',()=>{
+ for(const mutate of[(v:any)=>v.serialized_source_guild.roles.push(v.serialized_source_guild.roles[0]),(v:any)=>v.serialized_source_guild.roles[0].permissions='-1',(v:any)=>v.serialized_source_guild.channels[2].permission_overwrites[1].id=99,(v:any)=>v.serialized_source_guild.channels[1].parent_id=999,(v:any)=>v.serialized_source_guild.roles=Array.from({length:51},(_,id)=>({id,name:'Role',permissions:'0'})),(v:any)=>v.serialized_source_guild.channels[1].name='bad\u0000name']){const value=snapshot();mutate(value);assert.throws(()=>normalizeTemplate(value));}
+});
+test('Discord fetching uses a fixed HTTPS origin, bounded body, no redirects and no account tokens',async()=>{
+ let called=false;const template=await fetchTemplate('fixture',async(url,options)=>{called=true;assert.equal(String(url),'https://discord.com/api/v10/guilds/templates/fixture');assert.equal(options?.redirect,'error');assert.equal((options?.headers as Record<string,string>).Authorization,undefined);return Response.json(snapshot());});assert.ok(called);assert.equal(template.name,'The squad');
+ await assert.rejects(()=>fetchTemplate('fixture',async()=>new Response('x'.repeat(1_000_001))),/template_too_large/);await assert.rejects(()=>fetchTemplate('fixture',async()=>new Response('',{status:429})),/discord_rate_limited/);
+});
+test('import endpoint verifies auth, rate gate and preview fingerprint before the atomic RPC',async()=>{
+ const calls:any[]=[];const handler=createDiscordImportHandler({user:async jwt=>jwt==='fixture-token'?'fixture-user':null,rpc:async(jwt,name,args)=>{calls.push({jwt,name,args});return {data:name==='import_discord_server'?server:null,error:null};},fetcher:async()=>Response.json(snapshot())});
+ const send=(body:unknown,jwt='fixture-token',origin='https://onyxchat.site')=>handler(new Request('https://api.test/server-import',{method:'POST',headers:{Origin:origin,Authorization:'Bearer '+jwt},body:JSON.stringify(body)}));
+ assert.equal((await send({action:'preview',code:'fixture'},'bad')).status,401);assert.equal((await send({action:'preview',code:'fixture'},'fixture-token','https://evil.test')).status,403);assert.equal(calls.length,0);
+ const preview=await(await send({action:'preview',code:'fixture'})).json();assert.equal(preview.channels,2);assert.equal(preview.fingerprint,await fingerprint(normalizeTemplate(snapshot())));assert.equal(calls[0].name,'discord_import_gate');
+ assert.equal((await send({action:'import',code:'fixture',requestId:server,fingerprint:'wrong'})).status,409);assert.ok(!calls.some(call=>call.name==='import_discord_server'));
+ const imported=await(await send({action:'import',code:'fixture',requestId:server,name:'My squad',fingerprint:preview.fingerprint})).json();assert.equal(imported.serverId,server);const mutation=calls.find(call=>call.name==='import_discord_server');assert.equal(mutation.jwt,'fixture-token');assert.equal(mutation.args.p.name,'My squad');assert.ok(!('owner_id'in mutation.args.p));
+});

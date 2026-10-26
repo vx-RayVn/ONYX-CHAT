@@ -1,0 +1,90 @@
+/* Styles for the development-only artwork QA page (src/dev/CosmeticsGallery.tsx). */
+.dev-gallery {
+  height: 100vh;
+  overflow: auto;
+  padding: 20px;
+  background: var(--bg-main);
+}
+
+.dev-gallery nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.dev-gallery nav button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: var(--bg-raised);
+  color: var(--text);
+}
+
+.dev-gallery nav .is-active {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.dev-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 28px;
+}
+
+.dev-grid.is-frame,
+.dev-grid.is-effect {
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+}
+
+.dev-grid.is-banner {
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+}
+
+.dev-grid figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 24px 12px 12px;
+  border-radius: 14px;
+  background: var(--bg-sidebar);
+}
+
+.dev-grid figcaption {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.dev-banner {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 340 / 122;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dev-banner .banner {
+  position: absolute;
+  inset: 0;
+}
+
+.dev-names {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dev-name-row {
+  display: grid;
+  grid-template-columns: 160px 120px 220px 240px 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--bg-sidebar);
+}
+
+.dev-name-row .name-preset {
+  min-height: 70px;
+}

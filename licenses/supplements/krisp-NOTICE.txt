@@ -1,0 +1,3 @@
+Optional @livekit/krisp-noise-filter SDK
+License declared by its publisher: SEE LICENSE IN https://livekit.io/legal/terms-of-service
+This notice grants no rights beyond the provider terms. The proprietary SDK/model is excluded from the open-source snapshot.

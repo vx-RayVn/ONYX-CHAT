@@ -1,0 +1,30 @@
+/* Website adaptations around unchanged ONYX components. No application handlers are shipped. */
+:host{display:block;min-width:0;width:100%;color:var(--text);font:14px/1.43 var(--font-sans);font-feature-settings:'cv05' 1,'cv08' 1;isolation:isolate}
+.native-root{width:100%;height:100%;min-width:0;overflow:hidden;border-radius:inherit;isolation:isolate}
+.native-root .pcard{width:100%;margin:0}.native-root .pcard-top-tools{display:none}
+.native-root .pcard-name{font-size:20px}.native-root .pcard-username,.native-root .pcard-status{font-size:14px}
+.read-only :is(button,a,[role='button']){pointer-events:none;cursor:default}
+.read-only :is(input,textarea){pointer-events:none;caret-color:transparent}
+.read-only .msg-content,.read-only .msg-content *,.read-only .welcome :is(h2,p,strong,.welcome-username){user-select:text;-webkit-user-select:text}
+.native-chat-desktop,.native-chat-mobile{height:100%;min-width:0}.native-chat-mobile{display:none}
+.native-root .app{position:relative;inset:auto;top:auto;height:100%;min-height:0;padding:0}.native-root .workspace{margin:0;border-radius:0}
+.native-root .msg-scroll{overscroll-behavior:contain;touch-action:pan-y}.native-root .msg-inner{padding-top:0}
+.native-root .msg-tools,.native-root .jump-present,.native-root .notify-prompt,.native-root .demo-pill{display:none}
+.native-root .header-actions .header-search{max-width:150px}
+.native-root .composer{margin-bottom:12px}.native-root .side-panel{width:340px;max-width:340px}
+.native-chat-mobile .rail,.native-chat-mobile .sidebar,.native-chat-mobile .side-panel{display:none!important}
+.native-chat-mobile .workspace{width:100%;margin:0}.native-chat-mobile .main{width:100%;min-width:0}
+.native-chat-mobile .hide-sm,.native-chat-mobile .header-search{display:none!important}
+.native-chat-mobile .mobile-only{display:inline-flex!important}
+.native-call .call-panel{max-height:none;width:100%;border:0;padding:22px;gap:16px}
+.native-call .call-panel,.native-call .call-stage{animation:none;opacity:1;transform:none}
+.native-call .call-stage{height:240px;flex:0 0 240px;max-height:none}
+.native-call .call-stage .vgrid{height:100%;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(0,1fr)}
+.native-call .call-size{display:none}.native-call .call-status{flex:0 0 auto}
+.native-call .call-time{min-width:5ch;font-variant-numeric:tabular-nums}
+.native-call .vtile .avatar-speak{transition:opacity .25s}
+@media(min-width:601px){:host(.profile-host) .pcard{--pc-avatar:104px;--pc-banner:170px;--pc-left:20px}:host(.profile-host) .pcard-avatar>.avatar{transform:scale(1.2381);transform-origin:top left}:host(.profile-host) .pcard-inner{padding:4px 22px 22px}:host(.profile-host) .pcard-name{font-size:26px}:host(.profile-host) .pcard-username{font-size:16px}:host(.profile-host) .pcard-status{font-size:16px;padding:12px}:host(.profile-host) .pcard-names{margin-bottom:16px}}
+:host([data-offscreen]) .media-anim,:host([data-offscreen]) .media-anim *,:host([data-offscreen]) .media-anim::before,:host([data-offscreen]) .media-anim::after,:host([data-offscreen]) .media-anim *::before,:host([data-offscreen]) .media-anim *::after{animation-play-state:paused!important}
+@media(max-width:1099px){.native-chat-desktop{display:none}.native-chat-mobile{display:block;height:auto}:host(.chat-host),.native-root.native-chat{height:auto}.native-chat-mobile .app{height:auto;min-height:720px}.native-chat-mobile .msg-scroll{flex:none;overflow:visible}}
+@media(max-width:600px){.native-call .call-panel{padding:16px;gap:12px}.native-call .call-stage{height:170px;flex-basis:170px}.native-call .call-panel .vcontrols.is-compact .vbtn,.native-call .call-panel .vcontrols.is-compact .vbtn-leave{width:clamp(32px,calc((100vw - 110px)/6),44px);height:40px;flex-shrink:0}.native-call .call-panel .vcontrols{gap:6px}.native-call .vtile .avatar{max-width:64px;max-height:64px}.native-chat-mobile .view-header{padding-inline:12px}.native-chat-mobile .msg-inner{padding-top:8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}

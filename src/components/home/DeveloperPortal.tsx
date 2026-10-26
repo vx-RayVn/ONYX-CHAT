@@ -1,0 +1,8 @@
+import {t} from '../../i18n';
+export function DeveloperPortal(){
+ return <main className="developer-portal"><a href="/" className="developer-brand">ONYX</a><h1>{t('Developer')}</h1><p>{t('Create real bots, approve their connection and choose exactly which channels they can use.')}</p>
+ <div className="row-actions"><a className="btn btn-primary" href="/?developer=1">{t('Your bots')}</a><a className="btn btn-secondary" href="/developers/bot.mjs" download="onyx-bot.mjs">{t('Download example bot')}</a><a className="btn btn-secondary" href="/developers/openapi.json">OpenAPI</a></div>
+ <section><h2>{t('Getting started')}</h2><ol><li>{t('Create a bot in Settings → Developer and copy its start command.')}</li><li>{t('Run the example with Node.js 22 or newer, then approve its pairing code in ONYX.')}</li><li>{t('Install the bot into selected server channels and invoke its /ping command.')}</li></ol><pre>node onyx-bot.mjs YOUR_BOT_ID</pre></section>
+ <section><h2>{t('Bot API')}</h2><code>https://your-project.supabase.co/functions/v1/bot-api</code><p>{t('Only server managers can install bots. Bots can send messages and receive invoked commands in selected text channels; they cannot read chat history.')}</p><p>{t('Run bots on your own server or computer. ONYX does not host their code. The example worker and API documentation are included in the project.')}</p><p>{t('Access expires after 30 days. Revoke it at any time in Developer settings. Keep bot tokens only on the bot’s server.')}</p><pre>{`GET /me\nPOST /commands {"commands":[{"name":"ping","description":"Ping"}]}\nGET /events?after=0\nPOST /messages {"channel_id":"…","nonce":"UUID","content":"Pong!"}`}</pre></section>
+ <a href="/" className="btn btn-secondary">{t('Back')}</a></main>;
+}

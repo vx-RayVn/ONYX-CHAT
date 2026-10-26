@@ -1,0 +1,65 @@
+begin;
+create temp table t_res(n serial,name text,ok boolean,detail text) on commit drop;
+grant all on t_res to authenticated,anon,service_role;
+grant usage on sequence t_res_n_seq to authenticated,anon,service_role;
+create temp table saved_seq as select last_value,is_called from public.member_number_seq;
+create function pg_temp.t(p_name text,p_user uuid,p_sql text,p_expect text,p_role text default 'authenticated') returns void language plpgsql as $$ declare v text;begin
+ begin
+  perform set_config('request.jwt.claims',json_build_object('sub',p_user,'role',p_role)::text,true);execute format('set local role %I',p_role);
+  if p_sql ~* '^\s*(insert|update|delete)' and p_sql !~* '\mreturning\M' then execute p_sql;v:=null;else execute p_sql into v;end if;
+  reset role;perform set_config('request.jwt.claims','',true);
+  insert into t_res(name,ok,detail) values(p_name,p_expect='ok' or (p_expect like '=%' and v is not distinct from substr(p_expect,2)),coalesce(v,'null'));
+ exception when others then
+  reset role;perform set_config('request.jwt.claims','',true);
+  insert into t_res(name,ok,detail) values(p_name,p_expect<>'ok' and p_expect not like '=%' and sqlerrm ilike '%'||p_expect||'%',sqlerrm);
+ end;
+end $$;
+insert into auth.users(id,email,aud,role,raw_user_meta_data) values
+ ('00000000-0000-4000-8000-0000000000e1','zz-activity1@onyx.invalid','authenticated','authenticated','{"username":"zz_activity1"}'),
+ ('00000000-0000-4000-8000-0000000000e2','zz-activity2@onyx.invalid','authenticated','authenticated','{"username":"zz_activity2"}');
+select setval('public.member_number_seq',last_value,is_called) from saved_seq;
+update public.profiles set status='online' where id in ('00000000-0000-4000-8000-0000000000e1','00000000-0000-4000-8000-0000000000e2');
+select pg_temp.t('pair synthetic artwork device',null,$q$select public.activity_control('00000000-0000-4000-8000-0000000000e1','pair',jsonb_build_object('hash',repeat('a',64),'name','Art test'))$q$,'ok','service_role');
+select pg_temp.t('scoped device can publish icon',null,$q$select public.activity_publish_artwork(repeat('a',64),'Fortnite','epic:Fortnite',now(),'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLttAAAAABJRU5ErkJggg==')$q$,'ok','service_role');
+select pg_temp.t('icon cache identifier is generated',null,$q$select artwork_hash=md5(artwork_png) from public.game_activities where user_id='00000000-0000-4000-8000-0000000000e1'$q$,'=true','service_role');
+select pg_temp.t('authorized viewer sees exact icon','00000000-0000-4000-8000-0000000000e2',$q$select artwork_png from public.game_activities where user_id='00000000-0000-4000-8000-0000000000e1'$q$,'=iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLttAAAAABJRU5ErkJggg==','authenticated');
+select pg_temp.t('anonymous cannot read icon',null,$q$select artwork_png from public.game_activities$q$,'permission denied','anon');
+select pg_temp.t('signed in clients cannot forge icons','00000000-0000-4000-8000-0000000000e1',$q$update public.game_activities set artwork_png='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLttAAAAABJRU5ErkJggg==' where user_id='00000000-0000-4000-8000-0000000000e1'$q$,'permission denied','authenticated');
+select pg_temp.t('signed in clients cannot invoke publisher','00000000-0000-4000-8000-0000000000e1',$q$select public.activity_publish_artwork(repeat('a',64),'Fortnite','epic:Fortnite',now(),'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLttAAAAABJRU5ErkJggg==')$q$,'permission denied','authenticated');
+select pg_temp.t('unknown device cannot publish icon',null,$q$select public.activity_publish_artwork(repeat('f',64),'Fortnite','epic:Fortnite',now(),'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLttAAAAABJRU5ErkJggg==')$q$,'unauthorized','service_role');
+select pg_temp.t('rate limit includes icon writes',null,$q$select public.activity_publish_artwork(repeat('a',64),'Fortnite','epic:Fortnite',now(),'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLttAAAAABJRU5ErkJggg==')$q$,'rate limited','service_role');
+update private.activity_devices set last_seen=now()-interval '20 seconds' where token_hash=repeat('a',64);
+select pg_temp.t('heartbeat keeps uploaded icon',null,$q$select public.activity_publish_artwork(repeat('a',64),'Fortnite','epic:Fortnite',now(),null)$q$,'ok','service_role');
+select pg_temp.t('icon survives heartbeat',null,$q$select artwork_png from public.game_activities where user_id='00000000-0000-4000-8000-0000000000e1'$q$,'=iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLttAAAAABJRU5ErkJggg==','service_role');
+update private.activity_devices set last_seen=now()-interval '20 seconds' where token_hash=repeat('a',64);
+select pg_temp.t('new game clears old artwork',null,$q$select public.activity_publish_artwork(repeat('a',64),'Fortnite','epic:Other',now(),null)$q$,'ok','service_role');
+select pg_temp.t('no stale Fortnite icon on another game',null,$q$select coalesce(artwork_png,'none') from public.game_activities where user_id='00000000-0000-4000-8000-0000000000e1'$q$,'=none','service_role');
+update private.activity_devices set last_seen=now()-interval '20 seconds' where token_hash=repeat('a',64);
+select pg_temp.t('new game can upload its icon',null,$q$select public.activity_publish_artwork(repeat('a',64),'Fortnite','epic:Other',now(),'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLttAAAAABJRU5ErkJggg==')$q$,'ok','service_role');
+update private.activity_devices set last_seen=now()-interval '20 seconds' where token_hash=repeat('a',64);
+select pg_temp.t('legacy publisher changes game safely',null,$q$select public.activity_publish(repeat('a',64),'Legacy','custom:legacy',now())$q$,'ok','service_role');
+select pg_temp.t('legacy game does not inherit previous icon',null,$q$select coalesce(artwork_png,'none') from public.game_activities where user_id='00000000-0000-4000-8000-0000000000e1'$q$,'=none','service_role');
+update private.activity_devices set last_seen=now()-interval '20 seconds' where token_hash=repeat('a',64);
+select pg_temp.t('reject unsafe icon text',null,$q$select public.activity_publish_artwork(repeat('a',64),'Fortnite','epic:Fortnite',now(),'https://attacker.invalid/a.svg')$q$,'violates check constraint','service_role');
+update private.activity_devices set last_seen=now()-interval '20 seconds' where token_hash=repeat('a',64);
+select pg_temp.t('reject oversized stored icon',null,$q$select public.activity_publish_artwork(repeat('a',64),'Fortnite','epic:Fortnite',now(),'iVBORw0KGgo'||repeat('a',44000))$q$,'violates check constraint','service_role');
+update private.activity_devices set last_seen=now()-interval '20 seconds' where token_hash=repeat('a',64);
+select pg_temp.t('republish safe icon',null,$q$select public.activity_publish_artwork(repeat('a',64),'Fortnite','epic:Fortnite',now(),'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLttAAAAABJRU5ErkJggg==')$q$,'ok','service_role');
+insert into public.blocks(blocker_id,blocked_id) values('00000000-0000-4000-8000-0000000000e1','00000000-0000-4000-8000-0000000000e2');
+select pg_temp.t('blocked viewer cannot load icon','00000000-0000-4000-8000-0000000000e2',$q$select count(*) from public.game_activities where user_id='00000000-0000-4000-8000-0000000000e1'$q$,'=0','authenticated');
+delete from public.blocks where blocker_id='00000000-0000-4000-8000-0000000000e1';update public.profiles set status='offline' where id='00000000-0000-4000-8000-0000000000e1';
+select pg_temp.t('invisible player icon is private','00000000-0000-4000-8000-0000000000e2',$q$select count(*) from public.game_activities where user_id='00000000-0000-4000-8000-0000000000e1'$q$,'=0','authenticated');
+update public.profiles set status='online' where id='00000000-0000-4000-8000-0000000000e1';
+select pg_temp.t('account-wide switch removes icon',null,$q$select public.activity_control('00000000-0000-4000-8000-0000000000e1','settings','{"enabled":false}'::jsonb)$q$,'ok','service_role');
+select pg_temp.t('no image row remains after disable',null,$q$select count(*) from public.game_activities where user_id='00000000-0000-4000-8000-0000000000e1'$q$,'=0','service_role');
+update private.activity_devices set last_seen=now()-interval '20 seconds' where token_hash=repeat('a',64);
+select pg_temp.t('icon publisher cannot override disabled activity',null,$q$select public.activity_publish_artwork(repeat('a',64),'Fortnite','epic:Fortnite',now(),'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLttAAAAABJRU5ErkJggg==')$q$,'ok','service_role');
+select pg_temp.t('disabled activity still has no image',null,$q$select count(*) from public.game_activities where user_id='00000000-0000-4000-8000-0000000000e1'$q$,'=0','service_role');
+select pg_temp.t('reenable for cleanup test',null,$q$select public.activity_control('00000000-0000-4000-8000-0000000000e1','settings','{"enabled":true}'::jsonb)$q$,'ok','service_role');
+update private.activity_devices set last_seen=now()-interval '20 seconds' where token_hash=repeat('a',64);
+select pg_temp.t('publish before disconnect',null,$q$select public.activity_publish_artwork(repeat('a',64),'Fortnite','epic:Fortnite',now(),'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLttAAAAABJRU5ErkJggg==')$q$,'ok','service_role');
+select pg_temp.t('disconnect removes image',null,$q$select public.activity_disconnect(repeat('a',64))$q$,'ok','service_role');
+select pg_temp.t('image cascades with device',null,$q$select count(*) from public.game_activities where user_id='00000000-0000-4000-8000-0000000000e1'$q$,'=0','service_role');
+select setval('public.member_number_seq',last_value,is_called) from saved_seq;
+select count(*) as total,count(*) filter(where ok) as passed,jsonb_agg(jsonb_build_object('name',name,'detail',detail)) filter(where not ok) as failed from t_res;
+rollback;

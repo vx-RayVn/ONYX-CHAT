@@ -1,0 +1,44 @@
+node_modules
+dist
+.DS_Store
+*.log
+*.tsbuildinfo
+
+# Lokale Voice-Testumgebung und Browser-Artefakte
+.tools/
+test-results/
+playwright-report/
+
+# Lokale Umgebungsvariablen (Supabase-URL und -Key) – nie einchecken
+.env.local
+.env.*.local
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.key
+*.pem
+
+# Public seller details are entered locally and published only after review.
+website/merchant-public.local.json
+supabase/functions/billing-verification/probe.generated.ts
+supabase/functions/_shared/commerce-policy.generated.ts
+public/commerce/terms.txt
+
+# Supabase CLI
+supabase/.temp
+supabase/.branches
+
+# Vorschau der Mail-Vorlagen (npm run emails)
+supabase/templates/preview
+
+# Generated optional Windows companion artifacts
+desktop/**/bin/
+desktop/**/obj/
+desktop/Onyx.Activity/strings.json
+desktop/Onyx.Activity/onyx.png
+desktop/Onyx.Desktop/strings.json
+desktop/Onyx.Desktop/onyx.ico
+public/downloads/*.zip
+public/downloads/*.exe

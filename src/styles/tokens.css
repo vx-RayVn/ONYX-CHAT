@@ -1,0 +1,132 @@
+/* ==========================================================================
+   ONYX design tokens
+   Graphite surfaces, emerald accent. Every colour in the app comes from here.
+   ========================================================================== */
+
+:root {
+  /* ---- Surfaces (darkest → lightest) ---------------------------------- */
+  --bg-app: #07090b;
+  --bg-sidebar: #0b0f12;
+  --bg-main: #0f1417;
+  --bg-raised: #141a1e;
+  --bg-input: #161d22;
+  --bg-overlay: #161c21;
+  --bg-overlay-2: #1c242a;
+  --bg-tooltip: #1f282e;
+
+  --bg-hover: rgba(214, 236, 230, 0.045);
+  --bg-hover-strong: rgba(214, 236, 230, 0.07);
+  --bg-active: rgba(214, 236, 230, 0.09);
+  --bg-message-hover: rgba(214, 236, 230, 0.025);
+  /* Recessed wells: inputs, chips, counters */
+  --bg-well: rgba(0, 0, 0, 0.3);
+
+  /* ---- Lines ------------------------------------------------------------ */
+  --line: rgba(255, 255, 255, 0.06);
+  --line-2: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.14);
+  --highlight-top: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+  /* ---- Text ------------------------------------------------------------- */
+  --text-strong: #f1f5f6;
+  --text: #d3dadd;
+  --text-muted: #8c989f;
+  --text-faint: #646f76;
+  --text-disabled: #454f55;
+
+  /* ---- Accent: emerald ------------------------------------------------- */
+  --accent-200: #a7f3d0;
+  --accent-300: #6ee7b7;
+  --accent-400: #34d399;
+  --accent: #10b981;
+  --accent-hover: #1fc791;
+  --accent-press: #0ea271;
+  --accent-600: #059669;
+  --accent-700: #047857;
+  --accent-900: #064e3b;
+  --accent-ink: #03130c;
+  --accent-text: #3ddba3;
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-softer: color-mix(in srgb, var(--accent) 8%, transparent);
+  --accent-line: color-mix(in srgb, var(--accent) 38%, transparent);
+  --accent-glow: 0 0 0 1px color-mix(in srgb, var(--accent) 50%, transparent), 0 0 18px -2px color-mix(in srgb, var(--accent) 35%, transparent);
+
+  /* ---- Semantic --------------------------------------------------------- */
+  --online: #10b981;
+  --idle: #f2b441;
+  --dnd: #ef4b5f;
+  --offline: #5f6a71;
+  --danger: #ef4b5f;
+  --danger-hover: #f2606f;
+  --danger-soft: rgba(239, 75, 95, 0.13);
+  --danger-text: #ff7d8b;
+  --warning: #f2b441;
+  --warning-soft: rgba(242, 180, 65, 0.12);
+  --info: #5ab0f2;
+  --info-soft: rgba(90, 176, 242, 0.12);
+  --mention-bg: color-mix(in srgb, var(--accent) 7.5%, transparent);
+  --mention-bar: var(--accent);
+  --mention-pill: color-mix(in srgb, var(--accent) 16%, transparent);
+  --mention-pill-hover: color-mix(in srgb, var(--accent) 30%, transparent);
+  --badge-red: #ef4b5f;
+
+  /* Supporter crystal gradient (green family on purpose: stays on brand) */
+  --crystal: linear-gradient(135deg, #a7f3d0 0%, #34d399 38%, #10b981 62%, #5eead4 100%);
+  --app-glow: color-mix(in srgb, var(--accent) 13%, transparent);
+
+  /* ---- Typography ------------------------------------------------------- */
+  --font-sans: 'Twemoji Country Flags', 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+  --font-mono: 'Cascadia Code', 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+  --font-emoji: 'Twemoji Country Flags', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+
+  --fs-2xs: 11px;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 14px;
+  --fs-lg: 16px;
+  --fs-xl: 18px;
+  --fs-2xl: 22px;
+  --fs-3xl: 28px;
+
+  /* Chat text scales with the user's font size preference */
+  --chat-scale: 1;
+  --fs-message: calc(15px * var(--chat-scale));
+  --lh-message: 1.47;
+  --group-gap: 16px;
+
+  /* ---- Spacing / radius --------------------------------------------- */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-2xl: 20px;
+  --r-full: 999px;
+
+  /* ---- Elevation ------------------------------------------------------ */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 6px 20px -6px rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 16px 40px -10px rgba(0, 0, 0, 0.72), 0 2px 6px rgba(0, 0, 0, 0.35);
+  --shadow-modal: 0 32px 80px -16px rgba(0, 0, 0, 0.8), 0 4px 14px rgba(0, 0, 0, 0.4);
+
+  /* ---- Motion --------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --dur-1: 90ms;
+  --dur-2: 160ms;
+  --dur-3: 240ms;
+  --dur-4: 360ms;
+
+  /* ---- Layout -------------------------------------------------------- */
+  --topbar-h: 44px;
+  --rail-w: 72px;
+  --sidebar-w: 248px;
+  --members-w: 256px;
+  --header-h: 52px;
+
+  /* The colour a status dot / avatar cut-out sits on. Overridden per region. */
+  --surface: var(--bg-main);
+
+  color-scheme: dark;
+}

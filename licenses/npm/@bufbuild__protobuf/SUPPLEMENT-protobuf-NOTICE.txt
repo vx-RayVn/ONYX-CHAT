@@ -1,0 +1,4 @@
+Copyright 2021-2024 Buf Technologies, Inc.
+Apache-2.0 runtime code; BSD-3-Clause Google Protocol Buffers definitions.
+The npm package declares (Apache-2.0 AND BSD-3-Clause), but ships no root licence file.
+This supplement retains the upstream Apache text and Google BSD text.

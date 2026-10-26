@@ -1,0 +1,12 @@
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {validateMerchant,purchaseSections} from '../../website/purchase-terms.mjs';
+const input=JSON.parse(await readFile(new URL('../../website/merchant-public.local.json',import.meta.url),'utf8'));
+const merchant=validateMerchant({...input,publishPurchaseTerms:true});
+const decode=text=>text.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&');
+const text=purchaseSections(merchant).map(([,title,body])=>title+'\n'+decode(body.replace(/<\/(?:p|tr|h3)>|<br\s*\/?>/g,'\n').replace(/<\/(?:td|th)>/g,' | ').replace(/<[^>]*>/g,'').replace(/\n{3,}/g,'\n\n'))).join('\n\n')+'\n\nPublic cancellation: https://onyxchat.site/guidelines/#cancel-subscription\nPublic withdrawal: https://onyxchat.site/guidelines/#withdraw-contract\n';
+const hash=createHash('sha256').update(text).digest('hex');
+await mkdir(new URL('../../public/commerce/',import.meta.url),{recursive:true});
+await writeFile(new URL('../../public/commerce/terms.txt',import.meta.url),text);
+await writeFile(new URL('../../supabase/functions/_shared/commerce-policy.generated.ts',import.meta.url),'// Generated from approved public seller data; kept outside Git.\nexport default '+JSON.stringify({hash,text})+';\n');
+console.log(JSON.stringify({policyHash:hash,bytes:Buffer.byteLength(text),phonePublished:!!merchant.supportPhone,publicationFlag:input.publishPurchaseTerms}));

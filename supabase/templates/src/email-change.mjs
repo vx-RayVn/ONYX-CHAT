@@ -1,0 +1,20 @@
+/** Shared by first-time guest email linking and registered-account email changes. */
+const fields=['eyebrow','intro','ignore','sentTo'];
+const copy={
+ en:`Email confirmation|Enter this code in ONYX to confirm your email address, or use the button below. Then continue in ONYX.|If you didn’t request this, ignore this email. Without confirmation, this address won’t be linked to your account.|Email address to confirm: %s.`,
+ de:`E-Mail bestätigen|Gib diesen Code in ONYX ein, um deine E-Mail-Adresse zu bestätigen, oder nutze den Button unten. Mach danach in ONYX weiter.|Das warst du nicht? Ignoriere diese E-Mail. Ohne Bestätigung wird diese Adresse nicht mit deinem Konto verknüpft.|Zu bestätigende E-Mail-Adresse: %s.`,
+ es:`Confirmar correo|Introduce este código en ONYX para confirmar tu correo o utiliza el botón de abajo. Después, continúa en ONYX.|Si no lo has solicitado, ignora este correo. Sin confirmación, esta dirección no se vinculará a tu cuenta.|Correo que se va a confirmar: %s.`,
+ fr:`Confirmation de l’e-mail|Saisis ce code dans ONYX pour confirmer ton adresse e-mail, ou utilise le bouton ci-dessous. Continue ensuite dans ONYX.|Si tu n’as rien demandé, ignore cet e-mail. Sans confirmation, cette adresse ne sera pas liée à ton compte.|Adresse e-mail à confirmer : %s.`,
+ it:`Conferma e-mail|Inserisci questo codice in ONYX per confermare l’indirizzo e-mail, oppure usa il pulsante qui sotto. Poi continua in ONYX.|Se non hai richiesto questa operazione, ignora l’e-mail. Senza conferma, questo indirizzo non verrà collegato al tuo account.|Indirizzo e-mail da confermare: %s.`,
+ 'pt-BR':`Confirmar e-mail|Digite este código no ONYX para confirmar seu e-mail ou use o botão abaixo. Depois, continue no ONYX.|Se você não solicitou isso, ignore este e-mail. Sem confirmação, este endereço não será vinculado à sua conta.|E-mail a confirmar: %s.`,
+ nl:`E-mail bevestigen|Voer deze code in ONYX in om je e-mailadres te bevestigen, of gebruik de knop hieronder. Ga daarna verder in ONYX.|Heb je dit niet aangevraagd? Negeer deze e-mail. Zonder bevestiging wordt dit adres niet aan je account gekoppeld.|Te bevestigen e-mailadres: %s.`,
+ pl:`Potwierdzenie e-maila|Wpisz ten kod w ONYX, aby potwierdzić adres e-mail, lub użyj przycisku poniżej. Następnie kontynuuj w ONYX.|Jeśli to nie ty, zignoruj tę wiadomość. Bez potwierdzenia ten adres nie zostanie powiązany z twoim kontem.|Adres e-mail do potwierdzenia: %s.`,
+ tr:`E-posta doğrulaması|E-posta adresini doğrulamak için bu kodu ONYX’e gir veya aşağıdaki düğmeyi kullan. Ardından ONYX’te devam et.|Bunu sen istemediysen bu e-postayı yok say. Doğrulama olmadan bu adres hesabına bağlanmaz.|Doğrulanacak e-posta adresi: %s.`,
+ ru:`Подтверждение почты|Введи этот код в ONYX для подтверждения почты или нажми кнопку ниже. Затем продолжи в ONYX.|Если это не ты, проигнорируй письмо. Без подтверждения этот адрес не будет привязан к твоему аккаунту.|Адрес для подтверждения: %s.`,
+ uk:`Підтвердження пошти|Введи цей код в ONYX для підтвердження пошти або натисни кнопку нижче. Потім продовж в ONYX.|Якщо це не ти, проігноруй лист. Без підтвердження цю адресу не буде прив’язано до твого акаунта.|Адреса для підтвердження: %s.`,
+ ar:`تأكيد البريد الإلكتروني|أدخل هذا الرمز في ONYX لتأكيد بريدك الإلكتروني، أو استخدم الزر أدناه. ثم تابع في ONYX.|إذا لم تطلب ذلك، تجاهل هذه الرسالة. لن يرتبط هذا العنوان بحسابك دون تأكيد.|البريد الإلكتروني المطلوب تأكيده: %s.`,
+ ja:`メールアドレスの確認|このコードをONYXに入力するか、下のボタンでメールアドレスを確認してください。その後、ONYXで続きを進めてください。|心当たりがない場合は、このメールを無視してください。確認しない限り、このアドレスがアカウントに紐付けられることはありません。|確認するメールアドレス：%s。`,
+ ko:`이메일 확인|이 코드를 ONYX에 입력하거나 아래 버튼으로 이메일 주소를 확인하세요. 그런 다음 ONYX에서 계속 진행하세요.|요청하지 않았다면 이 이메일을 무시하세요. 확인하지 않으면 이 주소가 계정에 연결되지 않아요.|확인할 이메일 주소: %s.`,
+ 'zh-CN':`确认邮箱|请在ONYX中输入此验证码，或使用下方按钮确认邮箱，然后返回ONYX继续操作。|如果不是你本人发起的请求，请忽略此邮件。未经确认，此邮箱不会关联到你的账户。|待确认的邮箱：%s。`,
+};
+export const EMAIL_CHANGE=Object.fromEntries(Object.entries(copy).map(([lang,text])=>{const values=text.split('|');if(values.length!==fields.length)throw Error('Incomplete email-change copy: '+lang);return[lang,Object.fromEntries(fields.map((field,i)=>[field,values[i]]))];}));

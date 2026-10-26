@@ -1,0 +1,54 @@
+-- Rollback-only admission tests. No real sign-in, email or permanent account.
+begin;
+create temp table entry_results(name text,ok boolean) on commit drop;
+create function pg_temp.entry_check(label text,condition boolean)returns void language plpgsql as $$begin
+ insert into entry_results values(label,coalesce(condition,false));
+ if condition is distinct from true then raise exception 'Admission test failed: %',label;end if;
+end $$;
+create function pg_temp.entry_event(dob text default '2000-01-01',guest boolean default true,country text default null,ip text default '192.0.2.20')returns jsonb language sql as $$
+ select jsonb_build_object('metadata',jsonb_build_object('ip_address',ip),'user',jsonb_build_object('is_anonymous',guest,'user_metadata',jsonb_build_object('date_of_birth',dob,'country',country)))
+$$;
+select pg_temp.entry_check('Auth hook is not executable by public API users',not has_function_privilege('anon','public.before_onyx_signup(jsonb)','execute') and not has_function_privilege('authenticated','public.before_onyx_signup(jsonb)','execute'));
+select pg_temp.entry_check('Native Auth can execute hook',has_function_privilege('supabase_auth_admin','public.before_onyx_signup(jsonb)','execute'));
+select pg_temp.entry_check('Native Auth has private/crypto schema access',has_schema_privilege('supabase_auth_admin','private','usage') and has_schema_privilege('supabase_auth_admin','extensions','usage') and has_function_privilege('supabase_auth_admin','extensions.hmac(text,text,text)','execute'));
+select pg_temp.entry_check('Native Auth has exact counter permissions',has_table_privilege('supabase_auth_admin','private.signup_windows','select,insert,update,delete') and has_table_privilege('supabase_auth_admin','private.signup_policy','select') and not has_table_privilege('supabase_auth_admin','private.signup_policy','update'));
+select pg_temp.entry_check('Counters and salt are unavailable to client roles',not has_table_privilege('anon','private.signup_policy','select') and not has_table_privilege('authenticated','private.signup_windows','select'));
+select pg_temp.entry_check('Both private tables enable RLS',(select bool_and(relrowsecurity)from pg_class where oid in('private.signup_windows'::regclass,'private.signup_policy'::regclass)));
+select pg_temp.entry_check('Native Auth has RLS policies on both tables',(select count(*)=2 from pg_policy where polrelid in('private.signup_windows'::regclass,'private.signup_policy'::regclass) and 'supabase_auth_admin'::regrole=any(polroles)));
+select pg_temp.entry_check('A guest does not need a country',public.before_onyx_signup(pg_temp.entry_event())='{}');
+select pg_temp.entry_check('Registered signup requires a country',public.before_onyx_signup(pg_temp.entry_event(guest=>false))#>>'{error,message}'='country_required');
+select pg_temp.entry_check('Unsupported country is rejected',public.before_onyx_signup(pg_temp.entry_event(guest=>false,country=>'ZZ'))#>>'{error,message}'='country_required');
+select pg_temp.entry_check('Country is canonical, not lowercase',public.before_onyx_signup(pg_temp.entry_event(guest=>false,country=>'de'))#>>'{error,message}'='country_required');
+select pg_temp.entry_check('Registered signup with country succeeds',public.before_onyx_signup(pg_temp.entry_event(guest=>false,country=>'DE'))='{}');
+select pg_temp.entry_check('Mutable guest metadata cannot skip country',public.before_onyx_signup(jsonb_set(pg_temp.entry_event(guest=>false),'{user,user_metadata,is_anonymous}','true'))#>>'{error,message}'='country_required');
+select pg_temp.entry_check('Missing birth date is rejected',public.before_onyx_signup(pg_temp.entry_event(dob=>null))#>>'{error,message}'='date_required');
+select pg_temp.entry_check('Malformed birth date is rejected',public.before_onyx_signup(pg_temp.entry_event(dob=>'2000/01/01'))#>>'{error,message}'='date_required');
+select pg_temp.entry_check('Invalid calendar day is rejected',public.before_onyx_signup(pg_temp.entry_event(dob=>'2001-02-29'))#>>'{error,message}'='date_invalid');
+select pg_temp.entry_check('Future date is rejected',public.before_onyx_signup(pg_temp.entry_event(dob=>'2099-01-01'))#>>'{error,message}'='date_invalid');
+select pg_temp.entry_check('Unreasonable date is rejected',public.before_onyx_signup(pg_temp.entry_event(dob=>'1899-01-01'))#>>'{error,message}'='date_invalid');
+select pg_temp.entry_check('Young users receive a note/error, not an account',public.before_onyx_signup(pg_temp.entry_event(dob=>to_char((clock_timestamp()at time zone 'UTC')::date-interval '15 years','YYYY-MM-DD')))#>>'{error,message}'='minimum_age');
+select pg_temp.entry_check('Exact sixteenth birthday is admitted',public.before_onyx_signup(pg_temp.entry_event(dob=>to_char((clock_timestamp()at time zone 'UTC')::date-interval '16 years','YYYY-MM-DD')))='{}');
+select pg_temp.entry_check('One day short of sixteen is rejected',public.before_onyx_signup(pg_temp.entry_event(dob=>to_char((clock_timestamp()at time zone 'UTC')::date-interval '16 years'+interval '1 day','YYYY-MM-DD')))#>>'{error,message}'='minimum_age');
+select pg_temp.entry_check('Missing trusted IP is rejected',public.before_onyx_signup(pg_temp.entry_event(ip=>null))#>>'{error,message}'='signup_request_invalid');
+select pg_temp.entry_check('Malformed trusted IP is rejected',public.before_onyx_signup(pg_temp.entry_event(ip=>'invalid'))#>>'{error,message}'='signup_request_invalid');
+select pg_temp.entry_check('User metadata cannot provide a trusted IP',public.before_onyx_signup(jsonb_set(pg_temp.entry_event(ip=>null),'{user,user_metadata,ip_address}','"192.0.2.20"'))#>>'{error,message}'='signup_request_invalid');
+select pg_temp.entry_check('Valid IPv6 is admitted',public.before_onyx_signup(pg_temp.entry_event(ip=>'2001:db8::20'))='{}');
+delete from private.signup_windows;
+update private.signup_policy set guest_per_hour=2,registered_per_hour=3,total_per_day=4;
+select pg_temp.entry_check('First guest on an IP is admitted',public.before_onyx_signup(pg_temp.entry_event())='{}');
+select pg_temp.entry_check('Second guest is admitted',public.before_onyx_signup(pg_temp.entry_event())='{}');
+select pg_temp.entry_check('Third guest exceeds its hourly quota',public.before_onyx_signup(pg_temp.entry_event())#>>'{error,http_code}'='429');
+select pg_temp.entry_check('Registered signup has a separate hourly quota',public.before_onyx_signup(pg_temp.entry_event(guest=>false,country=>'GB'))='{}');
+select pg_temp.entry_check('Daily quota counts both account kinds',public.before_onyx_signup(pg_temp.entry_event(guest=>false,country=>'FR'))='{}');
+select pg_temp.entry_check('Shared daily quota stops further creations',public.before_onyx_signup(pg_temp.entry_event(guest=>false,country=>'US'))#>>'{error,message}'='signup_rate_limited');
+select pg_temp.entry_check('Another IP has an independent quota',public.before_onyx_signup(pg_temp.entry_event(ip=>'192.0.2.21'))='{}');
+select pg_temp.entry_check('Counters contain only hashed IP fingerprints',(select bool_and(fingerprint~'^[0-9a-f]{64}$') from private.signup_windows));
+insert into private.signup_windows values(repeat('a',64),'day',clock_timestamp()-interval '72 hours',1);
+select public.before_onyx_signup(pg_temp.entry_event(ip=>'192.0.2.22'));
+select pg_temp.entry_check('Old windows are pruned',not exists(select from private.signup_windows where window_start<clock_timestamp()-interval '48 hours'));
+insert into auth.users(id,aud,role,is_anonymous,raw_user_meta_data)values('00000000-0000-4000-8000-000000000020','authenticated','authenticated',true,'{"display_name":"Admission fixture","date_of_birth":"2000-01-01"}');
+select pg_temp.entry_check('Birth date is discarded before the Auth row is stored',not(select raw_user_meta_data?'date_of_birth' from auth.users where id='00000000-0000-4000-8000-000000000020'));
+select pg_temp.entry_check('Guest identity stays protected',(select is_guest and country is null and member_number is null from public.profiles where id='00000000-0000-4000-8000-000000000020'));
+select pg_temp.entry_check('Country-aware upgrade is authenticated only',has_function_privilege('authenticated','public.complete_guest_registration(text,text)','execute') and not has_function_privilege('anon','public.complete_guest_registration(text,text)','execute'));
+select jsonb_build_object('passed',count(*)filter(where ok),'total',count(*),'failed',jsonb_agg(name)filter(where not ok))as result from entry_results;
+rollback;

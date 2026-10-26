@@ -1,0 +1,40 @@
+import {useState} from 'react';
+import {ArrowRight,ChevronDown,Megaphone,ShieldCheck,Sparkles,Zap,TrendingUp,Info,Crown} from 'lucide-react';
+import {useBilling,openCheckout,billingErrorKey,type Product} from '../../backend/billing';
+import {supabase} from '../../backend/client';
+import {invalidateDirectory} from '../../backend/directory';
+import {useStore} from '../../store/store';
+import {toast,useUI} from '../../store/ui';
+import {formatPrice,formatShortDate} from '../../lib/utils';
+import {t} from '../../i18n';
+import {ServerIcon} from '../layout/ServerRail';
+import {Banner} from '../ui/Banner';
+import {Button} from '../ui/Button';
+import {Dropdown} from '../ui/Menu';
+import {Tooltip} from '../ui/Tooltip';
+import '../../styles/commerce.css';
+export const productName=(sku:string)=>({plus:'ONYX Plus',boost:t('Boost'),super:t('Super Boost'),mega:t('Mega Boost'),top:t('Top Row')})[sku]??sku;
+const amount=(product:Product)=>formatPrice(product.amount/100,'EUR');
+export function PromoteOwnerCard(){
+ const me=useStore(s=>s.meId),servers=useStore(s=>s.servers),[selected,setSelected]=useState('');
+ const owned=Object.values(servers).filter(server=>server.ownerId===me),server=owned.find(server=>server.id===selected)??owned[0];if(!server)return null;
+ return <article className="promote-owner-card"><span className="promote-owner-art"><Megaphone size={27}/><i/><i/></span><span className="eyebrow">{t('Your server here')}</span><div className="promote-owner-server"><ServerIcon server={server} size={38}/><Dropdown items={owned.map(item=>({label:item.name,onSelect:()=>setSelected(item.id)}))} trigger={<button className="promote-owner-select"><strong>{server.name}</strong>{owned.length>1&&<ChevronDown size={14}/>}</button>}/></div><p>{t('Give your community more visibility.')}</p><Button size="sm" icon={<ArrowRight size={14}/>} onClick={()=>useUI.getState().openSettings({kind:'server',serverId:server.id,section:'promote'})}>{t('Promote server')}</Button></article>;
+}
+export function PromotionSettings({serverId}:{serverId:string}){const owner=useStore(s=>s.servers[serverId]?.ownerId===s.meId);return owner?<OwnerPromotion key={serverId} serverId={serverId}/>:<p role="alert">{t('Only the owner can promote this server.')}</p>;}
+function OwnerPromotion({serverId}:{serverId:string}){
+ const server=useStore(s=>s.servers[serverId]),{catalog,status,loading,error,refresh}=useBilling(serverId),[consent,setConsent]=useState(false),[busy,setBusy]=useState<string|null>(null);if(!server)return null;
+ const top=catalog.products.find(product=>product.sku==='top'),boosts=catalog.products.filter(product=>product.kind==='boost'),active=(kind:string)=>status?.promotions.find(product=>product.kind===kind);
+ const purchase=async(product:Product)=>{if(busy||!status||!catalog.ready)return;setBusy(product.sku);try{if(!status.listed){if(!consent)return;const result=await supabase().rpc('save_server_directory',{p_server:serverId,p_enabled:true,p_category:status.category??'general'});if(result.error)throw result.error;invalidateDirectory();}await openCheckout(product.sku,serverId);}catch(error){toast({tone:'danger',title:t(billingErrorKey(error))});refresh();}finally{setBusy(null);}};
+ const disabled=(product:Product)=>loading||error||!catalog.ready||busy!==null||!status||!status.listed&&!consent||!!status?.promotions.length||product.kind==='top'&&catalog.topAvailable===0&&!active('top');
+ const label=(product:Product)=>active(product.kind)?.sku===product.sku?t('Active'):t('Choose {plan}',{plan:productName(product.sku)});
+ const rank=(sku:string)=>status?.projections?.[sku]?`#${status.projections[sku]}`:'—';
+ return <div className="promotion-settings"><header className="promotion-page-heading"><div className="promotion-heading-copy"><h2>{t('Give your community the spotlight.')}</h2><div className="promotion-owner-line"><ServerIcon server={server} size={28}/><strong>{server.name}</strong><span>{t('{days} days',{days:14})} · {t('One-time payment')}</span></div></div><div className="promotion-current-rank"><span><TrendingUp size={14}/>{t('Discovery rank')}</span><strong>{loading?'—':status?.rank?`#${status.rank}`:t('Not listed')}</strong>{typeof status?.listedCount==='number'&&<small>{t('{count} communities',{count:status.listedCount})}</small>}</div></header>
+  <div className="promotion-section-heading"><h3><Zap size={17}/>{t('Boost your server')}</h3><Tooltip content={t('Based on the current Discovery order. Positions can change before payment.')}><span className="promotion-live-estimate"><span/>{t('Live projection')}<Info size={12}/></span></Tooltip></div>
+  <div className="promotion-boost-grid">{boosts.map(product=><article className={`promotion-boost-card level-${product.level}`} key={product.sku}><div className="promotion-tier-heading"><span className="promotion-tier-icon">{product.level===3?<Crown size={20}/>:product.level===2?<Sparkles size={20}/>:<Zap size={20}/>}</span><span className="promotion-level" aria-label={t('Priority {level}',{level:product.level})}>{[1,2,3].map(i=><i key={i} className={i<=product.level?'is-lit':''}/>)}</span></div><h4>{productName(product.sku)}</h4><div className="promotion-projected-rank"><strong>{rank(product.sku)}</strong><span>{t('Projected place')}</span></div><div className="promotion-tier-label">{t('Priority {level}',{level:product.level})}</div><div className="promotion-price-line"><strong className="promotion-boost-price">{amount(product)}</strong><span>/{t('{days} days',{days:product.days})}</span></div><Button variant={product.level===3?'primary':'secondary'} loading={busy===product.sku} disabled={disabled(product)} onClick={()=>void purchase(product)}>{label(product)}</Button></article>)}</div>
+  {top&&<section className="promotion-top-offer"><div className="promotion-top-copy"><span className="promotion-tag"><Sparkles size={13}/>{t('Top Row')}</span><h3>{t('Above the community list')}</h3><p>{t('Four featured placements.')}</p>{catalog.ready&&catalog.topAvailable!==null&&<div className="promotion-slot-status"><span className="promotion-slot-meter" aria-hidden>{[0,1,2,3].map(index=><i key={index} className={index<catalog.topAvailable!?'is-open':''}/>)}</span><small>{catalog.topAvailable===0?t('All Top Row spots are currently reserved.'):t('{count} spots available',{count:catalog.topAvailable})}</small></div>}<div className="promotion-top-price"><strong>{amount(top)}</strong><span>/{t('{days} days',{days:top.days})}</span></div><Button loading={busy===top.sku} disabled={disabled(top)} onClick={()=>void purchase(top)} icon={<ArrowRight size={15}/>} >{label(top)}</Button></div><article className="promotion-server-preview"><div className="promotion-preview-banner"><Banner source={server.banner} color="linear-gradient(130deg,#184e40,#1b293b)"/></div><div className="promotion-preview-body"><ServerIcon server={server} size={44}/><span className="promotion-tag">{t('Preview')}</span><h4>{server.name}</h4><p>{server.description||t('Your server here')}</p><small>{t('{count} members',{count:Object.keys(server.members).length})}</small></div></article></section>}
+  {!!status?.promotions.length&&<div className="promotion-active">{status.promotions.map(product=><span key={product.kind}><ShieldCheck size={15}/><strong>{productName(product.sku)}</strong>{t('Promotion active until {date}',{date:formatShortDate(new Date(product.endsAt).getTime())})}</span>)}</div>}
+  {status&&!status.listed&&<label className="billing-consent promotion-publish"><input type="checkbox" checked={consent} onChange={event=>setConsent(event.target.checked)}/><span>{t('Activate listing in Discover')}</span></label>}
+  {!!status?.pendingActivation&&<p className="billing-note" role="status">{t('Payment received. Activation is pending.')}</p>}
+  {(loading||error||!catalog.ready)&&<p className="billing-note" role={error?'alert':'status'}>{loading?t('Loading…'):error?t('Payment status could not be loaded.'):catalog.mode==='test'?t('Test mode · no real payment'):t('Available after Stripe setup')}</p>}
+ </div>;
+}

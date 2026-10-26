@@ -1,0 +1,4 @@
+LICENSE -text
+licenses/** -text -whitespace
+public/THIRD-PARTY-NOTICES.txt -text -whitespace
+public/website/v*/** -text -diff

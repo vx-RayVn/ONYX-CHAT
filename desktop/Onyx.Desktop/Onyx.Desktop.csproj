@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><RootNamespace>Onyx.Desktop</RootNamespace>
+    <AssemblyName>ONYX</AssemblyName><Version>0.2.3</Version><Company>rayvn</Company><Product>ONYX 0.1</Product>
+    <ApplicationManifest>app.manifest</ApplicationManifest><ApplicationIcon>onyx.ico</ApplicationIcon>
+    <SelfContained>true</SelfContained><RuntimeIdentifier>win-x64</RuntimeIdentifier><PublishSingleFile>false</PublishSingleFile>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <DebugType>none</DebugType><DebugSymbols>false</DebugSymbols>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4314.35" />
+    <PackageReference Include="Velopack" Version="1.2.161" />
+    <EmbeddedResource Include="strings.json" />
+    <EmbeddedResource Include="onyx.ico" />
+    <EmbeddedResource Include="Fonts/Inter-SemiBold.ttf" />
+    <Content Include="Fonts/OFL.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="RemoveUnusedWpfWebView" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup><Reference Remove="@(Reference)" Condition="'%(Reference.Filename)' == 'Microsoft.Web.WebView2.Wpf'" /></ItemGroup>
+  </Target>
+</Project>

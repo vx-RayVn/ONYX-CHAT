@@ -1,0 +1,337 @@
+/* ==========================================================================
+   Banner presets & profile effects (pure CSS, animated ones are pausable)
+   ========================================================================== */
+
+.banner {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-raised);
+}
+
+.banner-img,
+.banner > .av-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bp-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Smaragd-Aurora ------------------------------------------------------ */
+.banner-emerald-aurora {
+  background:
+    radial-gradient(1px 1px at 12% 22%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 34% 12%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.2px 1.2px at 58% 26%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 76% 14%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 90% 34%, rgba(255, 255, 255, 0.6), transparent),
+    linear-gradient(180deg, #020a08 0%, #04140f 50%, #072a20 100%);
+}
+
+/* Curtain bands */
+.banner-emerald-aurora .bp-a {
+  inset: -20% -30%;
+  background:
+    linear-gradient(104deg, transparent 22%, rgba(16, 185, 129, 0.0) 28%, rgba(52, 211, 153, 0.75) 36%, rgba(167, 243, 208, 0.55) 40%, rgba(16, 185, 129, 0.15) 50%, transparent 56%),
+    linear-gradient(78deg, transparent 48%, rgba(45, 212, 191, 0.55) 60%, rgba(16, 185, 129, 0.1) 70%, transparent 76%);
+  filter: blur(9px);
+  mix-blend-mode: screen;
+  transform-origin: 50% 100%;
+  animation: aurora-drift 14s ease-in-out infinite alternate;
+}
+
+/* Glow rising from the horizon */
+.banner-emerald-aurora .bp-b {
+  background:
+    radial-gradient(70% 60% at 30% 115%, rgba(16, 185, 129, 0.55), transparent 70%),
+    radial-gradient(50% 50% at 80% 110%, rgba(45, 212, 191, 0.35), transparent 70%);
+  animation: aurora-pulse 7s ease-in-out infinite alternate;
+}
+
+/* Fine facet texture + depth */
+.banner-emerald-aurora .bp-c {
+  background:
+    repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 22px),
+    linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.3));
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(-7%, 0, 0) scaleY(1) skewX(-4deg);
+  }
+  100% {
+    transform: translate3d(7%, -4%, 0) scaleY(1.12) skewX(4deg);
+  }
+}
+
+@keyframes aurora-pulse {
+  to {
+    opacity: 0.7;
+  }
+}
+
+/* Synthwave ------------------------------------------------------------------ */
+.banner-synthwave {
+  background: linear-gradient(180deg, #140726 0%, #3b0f5c 48%, #a3205f 64%, #12061f 64.5%);
+}
+
+.banner-synthwave .bp-a {
+  left: 50%;
+  top: 12%;
+  width: 34%;
+  aspect-ratio: 1;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #fde68a 0%, #fb7185 55%, #c026d3 100%);
+  -webkit-mask: repeating-linear-gradient(180deg, #000 0 9%, transparent 9% 12%);
+  mask: linear-gradient(180deg, #000 45%, transparent 45%), repeating-linear-gradient(180deg, #000 0 7%, transparent 7% 10%);
+  box-shadow: 0 0 40px rgba(251, 113, 133, 0.6);
+  filter: drop-shadow(0 0 18px rgba(251, 113, 133, 0.55));
+}
+
+.banner-synthwave .bp-b {
+  top: 64%;
+  background-image:
+    linear-gradient(rgba(244, 114, 182, 0.75) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, rgba(244, 114, 182, 0.6) 1.5px, transparent 1.5px);
+  background-size: 34px 22px;
+  transform: perspective(160px) rotateX(58deg);
+  transform-origin: top center;
+  inset: 64% -50% -40% -50%;
+  animation: grid-move 1.6s linear infinite;
+}
+
+.banner-synthwave .bp-c {
+  background: linear-gradient(180deg, transparent 55%, rgba(18, 6, 31, 0.1) 64%, rgba(18, 6, 31, 0.85) 100%);
+}
+
+@keyframes grid-move {
+  to {
+    background-position: 0 22px;
+  }
+}
+
+/* Nebel -------------------------------------------------------------------- */
+.banner-nebula {
+  background: radial-gradient(120% 120% at 100% 0%, #241451 0%, #0c0a24 55%, #05050f 100%);
+}
+
+.banner-nebula .bp-a {
+  inset: -30%;
+  background:
+    radial-gradient(30% 35% at 30% 60%, rgba(139, 92, 246, 0.6), transparent 70%),
+    radial-gradient(25% 30% at 75% 35%, rgba(56, 189, 248, 0.45), transparent 70%);
+  filter: blur(14px);
+  animation: nebula-spin 26s linear infinite;
+}
+
+.banner-nebula .bp-b {
+  background-image:
+    radial-gradient(1.2px 1.2px at 12% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 28% 70%, #fff, transparent),
+    radial-gradient(1.4px 1.4px at 46% 22%, #fff, transparent),
+    radial-gradient(1px 1px at 62% 80%, #fff, transparent),
+    radial-gradient(1.3px 1.3px at 78% 46%, #fff, transparent),
+    radial-gradient(1px 1px at 90% 18%, #fff, transparent),
+    radial-gradient(1px 1px at 8% 86%, #fff, transparent);
+  opacity: 0.8;
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes nebula-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes twinkle {
+  to {
+    opacity: 0.35;
+  }
+}
+
+/* Glut ------------------------------------------------------------------- */
+.banner-ember {
+  background: radial-gradient(100% 140% at 50% 120%, #7c2d12 0%, #2a0d07 50%, #0b0505 100%);
+}
+
+.banner-ember .bp-a {
+  background: radial-gradient(60% 50% at 50% 110%, rgba(251, 146, 60, 0.55), transparent 70%);
+  animation: ember-glow 3s ease-in-out infinite alternate;
+}
+
+.banner-ember .bp-b,
+.banner-ember .bp-c {
+  background-image:
+    radial-gradient(2px 2px at 10% 90%, #fdba74, transparent),
+    radial-gradient(1.5px 1.5px at 25% 80%, #fde047, transparent),
+    radial-gradient(2px 2px at 40% 95%, #fb923c, transparent),
+    radial-gradient(1.5px 1.5px at 58% 85%, #fdba74, transparent),
+    radial-gradient(2px 2px at 72% 92%, #fde047, transparent),
+    radial-gradient(1.5px 1.5px at 88% 88%, #fb923c, transparent);
+  animation: embers-rise 5s linear infinite;
+}
+
+.banner-ember .bp-c {
+  animation-delay: -2.5s;
+  translate: 4% 0;
+}
+
+@keyframes ember-glow {
+  to {
+    opacity: 0.6;
+  }
+}
+
+@keyframes embers-rise {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-90%);
+    opacity: 0;
+  }
+}
+
+/* Facetten ------------------------------------------------------------------- */
+.banner-facets {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 200' preserveAspectRatio='xMidYMid slice'%3E%3Crect width='600' height='200' fill='%230b1013'/%3E%3Cpolygon points='0,0 140,0 90,110' fill='%23111a1e'/%3E%3Cpolygon points='140,0 300,0 210,90' fill='%23142026'/%3E%3Cpolygon points='90,110 210,90 160,200 0,200 0,140' fill='%230e1619'/%3E%3Cpolygon points='210,90 300,0 380,120 260,200 160,200' fill='%23173029'/%3E%3Cpolygon points='300,0 470,0 380,120' fill='%23123a2e'/%3E%3Cpolygon points='380,120 470,0 600,0 600,90 520,160' fill='%230f5640'/%3E%3Cpolygon points='380,120 520,160 480,200 260,200' fill='%230c2f25'/%3E%3Cpolygon points='520,160 600,90 600,200 480,200' fill='%2310b981' opacity='.55'/%3E%3Cpolygon points='0,0 90,110 0,140' fill='%230d1417'/%3E%3C/svg%3E")
+    center / cover;
+}
+
+/* Tiefsee ------------------------------------------------------------------- */
+.banner-ocean {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 200' preserveAspectRatio='none'%3E%3Cpath d='M0 120 C120 90 220 150 340 118 S520 90 600 110 V200 H0Z' fill='%230b3a5e' opacity='.8'/%3E%3Cpath d='M0 150 C140 125 260 175 380 150 S540 130 600 145 V200 H0Z' fill='%23072a45'/%3E%3C/svg%3E")
+      bottom / 100% 70% no-repeat,
+    linear-gradient(180deg, #0c4a6e 0%, #082f49 55%, #04172a 100%);
+}
+
+.banner-ocean .bp-a {
+  background: radial-gradient(40% 60% at 75% 10%, rgba(125, 211, 252, 0.35), transparent 70%);
+}
+
+/* Dämmerung ----------------------------------------------------------------- */
+.banner-dusk {
+  background: linear-gradient(120deg, #f59e0b 0%, #db2777 45%, #6d28d9 100%);
+}
+
+.banner-dusk .bp-a {
+  background: radial-gradient(30% 60% at 20% 100%, rgba(253, 224, 71, 0.55), transparent 70%);
+}
+
+.banner-dusk .bp-b {
+  background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.25));
+}
+
+/* Graphit ---------------------------------------------------------------- */
+.banner-graphite {
+  background:
+    repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 9px),
+    linear-gradient(135deg, #1d252a 0%, #0d1215 60%, #090c0e 100%);
+}
+
+.banner-graphite .bp-a {
+  background: radial-gradient(50% 80% at 85% 0%, rgba(16, 185, 129, 0.18), transparent 70%);
+}
+
+/* ==========================================================================
+   Profile effects
+   ========================================================================== */
+.profile-effect {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+  border-radius: inherit;
+}
+
+.fx-particle {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 50%;
+  opacity: 0;
+  animation: fx-rise var(--fx-dur, 5s) linear infinite;
+  animation-delay: var(--fx-delay, 0s);
+}
+
+.fx-sparks .fx-particle {
+  width: 4px;
+  height: 4px;
+  background: #6ee7b7;
+  box-shadow: 0 0 6px 2px rgba(52, 211, 153, 0.8);
+}
+
+.fx-stars .fx-particle {
+  width: 9px;
+  height: 9px;
+  border-radius: 0;
+  background: #f5f3ff;
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  filter: drop-shadow(0 0 4px rgba(196, 181, 253, 0.9));
+  animation-name: fx-twinkle-rise;
+}
+
+.fx-snow .fx-particle {
+  top: -10px;
+  bottom: auto;
+  width: 5px;
+  height: 5px;
+  background: #fff;
+  opacity: 0.8;
+  animation-name: fx-fall;
+}
+
+@keyframes fx-rise {
+  0% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--fx-x, 10px), -340px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes fx-twinkle-rise {
+  0% {
+    transform: translate(0, 0) rotate(0) scale(0.4);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(calc(var(--fx-x, 10px) / 2), -170px) rotate(90deg) scale(1);
+  }
+  100% {
+    transform: translate(var(--fx-x, 10px), -340px) rotate(180deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes fx-fall {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(var(--fx-x, 10px), 420px);
+    opacity: 0;
+  }
+}

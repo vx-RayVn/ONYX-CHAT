@@ -1,0 +1,492 @@
+/* ==========================================================================
+   Theme gallery
+   Each theme overrides surface and accent tokens from tokens.css. Derived
+   accent tones (soft, line, glow, mentions) are mixed from --accent, so a
+   theme only needs its base shades. Status colours stay semantic.
+   ========================================================================== */
+
+/* ---- Onyx OLED --------------------------------------------------------- */
+:root[data-theme='onyx'] {
+  --bg-app: #000000;
+  --bg-sidebar: #040607;
+  --bg-main: #07090b;
+  --bg-raised: #0d1114;
+  --bg-input: #0f1418;
+  --bg-overlay: #11161a;
+  --bg-overlay-2: #171e23;
+  --bg-tooltip: #1a2227;
+  --line: rgba(255, 255, 255, 0.07);
+  --app-glow: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+
+/* ---- Emerald Night ----------------------------------------------------- */
+:root[data-theme='emerald-night'] {
+  --bg-app: #020d0a;
+  --bg-sidebar: #05150f;
+  --bg-main: #081c15;
+  --bg-raised: #0c241b;
+  --bg-input: #0e2a20;
+  --bg-overlay: #0f2a21;
+  --bg-overlay-2: #14352a;
+  --bg-tooltip: #163a2e;
+  --bg-hover: rgba(167, 243, 208, 0.05);
+  --bg-hover-strong: rgba(167, 243, 208, 0.08);
+  --bg-active: rgba(167, 243, 208, 0.1);
+  --line: rgba(167, 243, 208, 0.07);
+  --line-2: rgba(167, 243, 208, 0.1);
+  --text-muted: #8fa89e;
+  --text-faint: #66807a;
+  --accent: #34d399;
+  --accent-hover: #4ade9f;
+  --accent-press: #10b981;
+  --accent-text: #5eead4;
+  --app-glow: color-mix(in srgb, #10b981 22%, transparent);
+}
+
+/* ---- Midnight Blue ----------------------------------------------------- */
+:root[data-theme='midnight'] {
+  --bg-app: #050914;
+  --bg-sidebar: #0a1020;
+  --bg-main: #0e1628;
+  --bg-raised: #131d33;
+  --bg-input: #152038;
+  --bg-overlay: #162139;
+  --bg-overlay-2: #1c2945;
+  --bg-tooltip: #1f2c4a;
+  --bg-hover: rgba(191, 219, 254, 0.05);
+  --bg-hover-strong: rgba(191, 219, 254, 0.08);
+  --bg-active: rgba(191, 219, 254, 0.1);
+  --line: rgba(191, 219, 254, 0.07);
+  --line-2: rgba(191, 219, 254, 0.1);
+  --text-muted: #8d9bb3;
+  --text-faint: #65738c;
+  --accent-200: #bfdbfe;
+  --accent-300: #93c5fd;
+  --accent-400: #60a5fa;
+  --accent: #3b82f6;
+  --accent-hover: #5592f7;
+  --accent-press: #2563eb;
+  --accent-600: #2563eb;
+  --accent-700: #1d4ed8;
+  --accent-900: #1e3a8a;
+  --accent-ink: #f8fafc;
+  --accent-text: #7cb3fb;
+}
+
+/* ---- Amethyst ---------------------------------------------------------- */
+:root[data-theme='amethyst'] {
+  --bg-app: #0a0612;
+  --bg-sidebar: #120b1f;
+  --bg-main: #170f27;
+  --bg-raised: #1d1431;
+  --bg-input: #201637;
+  --bg-overlay: #211738;
+  --bg-overlay-2: #2a1d46;
+  --bg-tooltip: #2e2049;
+  --bg-hover: rgba(221, 214, 254, 0.05);
+  --bg-hover-strong: rgba(221, 214, 254, 0.08);
+  --bg-active: rgba(221, 214, 254, 0.1);
+  --line: rgba(221, 214, 254, 0.07);
+  --line-2: rgba(221, 214, 254, 0.1);
+  --text-muted: #a195b8;
+  --text-faint: #786d8f;
+  --accent-200: #ddd6fe;
+  --accent-300: #c4b5fd;
+  --accent-400: #a78bfa;
+  --accent: #8b5cf6;
+  --accent-hover: #9b72f7;
+  --accent-press: #7c3aed;
+  --accent-600: #7c3aed;
+  --accent-700: #6d28d9;
+  --accent-900: #4c1d95;
+  --accent-ink: #faf5ff;
+  --accent-text: #b8a4fb;
+}
+
+/* ---- Deep Ocean -------------------------------------------------------- */
+:root[data-theme='deep-ocean'] {
+  --bg-app: #02090c;
+  --bg-sidebar: #051318;
+  --bg-main: #08191f;
+  --bg-raised: #0b2128;
+  --bg-input: #0d252d;
+  --bg-overlay: #0e262e;
+  --bg-overlay-2: #12303a;
+  --bg-tooltip: #15353f;
+  --bg-hover: rgba(165, 243, 252, 0.05);
+  --bg-hover-strong: rgba(165, 243, 252, 0.08);
+  --bg-active: rgba(165, 243, 252, 0.1);
+  --line: rgba(165, 243, 252, 0.07);
+  --line-2: rgba(165, 243, 252, 0.1);
+  --text-muted: #87a3aa;
+  --text-faint: #607d85;
+  --accent-200: #a5f3fc;
+  --accent-300: #67e8f9;
+  --accent-400: #22d3ee;
+  --accent: #06b6d4;
+  --accent-hover: #1ec3df;
+  --accent-press: #0891b2;
+  --accent-600: #0891b2;
+  --accent-700: #0e7490;
+  --accent-900: #164e63;
+  --accent-ink: #021015;
+  --accent-text: #4fdcf0;
+}
+
+/* ---- Aurora ------------------------------------------------------------ */
+:root[data-theme='aurora'] {
+  --bg-app: #030a10;
+  --bg-sidebar: #07131a;
+  --bg-main: #0a1820;
+  --bg-raised: #0e2029;
+  --bg-input: #10242e;
+  --bg-overlay: #11252f;
+  --bg-overlay-2: #162e3a;
+  --bg-tooltip: #19333f;
+  --line: rgba(153, 246, 228, 0.07);
+  --line-2: rgba(153, 246, 228, 0.1);
+  --accent-200: #ccfbf1;
+  --accent-300: #99f6e4;
+  --accent-400: #5eead4;
+  --accent: #2dd4bf;
+  --accent-hover: #46dcc9;
+  --accent-press: #14b8a6;
+  --accent-600: #0d9488;
+  --accent-700: #0f766e;
+  --accent-900: #134e4a;
+  --accent-ink: #031512;
+  --accent-text: #5eead4;
+  --app-glow: transparent;
+}
+
+/* Northern lights drifting behind the app. */
+:root[data-theme='aurora'] .app::before {
+  content: '';
+  position: absolute;
+  inset: -10% -10% auto -10%;
+  height: 70%;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 60% at 20% 30%, rgba(45, 212, 191, 0.22), transparent 70%),
+    radial-gradient(35% 55% at 55% 20%, rgba(129, 140, 248, 0.18), transparent 70%),
+    radial-gradient(30% 50% at 85% 35%, rgba(236, 72, 153, 0.12), transparent 70%);
+  filter: blur(30px);
+  animation: aurora-drift 18s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+/* ---- Crimson ----------------------------------------------------------- */
+:root[data-theme='crimson'] {
+  --bg-app: #0d0507;
+  --bg-sidebar: #170a0d;
+  --bg-main: #1d0e12;
+  --bg-raised: #241317;
+  --bg-input: #28151a;
+  --bg-overlay: #29161b;
+  --bg-overlay-2: #331c22;
+  --bg-tooltip: #381f26;
+  --bg-hover: rgba(254, 205, 211, 0.05);
+  --bg-hover-strong: rgba(254, 205, 211, 0.08);
+  --bg-active: rgba(254, 205, 211, 0.1);
+  --line: rgba(254, 205, 211, 0.07);
+  --line-2: rgba(254, 205, 211, 0.1);
+  --text-muted: #b09398;
+  --text-faint: #856a6f;
+  --accent-200: #fecdd3;
+  --accent-300: #fda4af;
+  --accent-400: #fb7185;
+  --accent: #f43f5e;
+  --accent-hover: #f6576f;
+  --accent-press: #e11d48;
+  --accent-600: #e11d48;
+  --accent-700: #be123c;
+  --accent-900: #881337;
+  --accent-ink: #fff1f2;
+  --accent-text: #fb8599;
+}
+
+/* ---- Summer Sunset (seasonal) ----------------------------------------- */
+:root[data-theme='sunset'] {
+  --bg-app: #0f0806;
+  --bg-sidebar: #1a0f0b;
+  --bg-main: #21130e;
+  --bg-raised: #281912;
+  --bg-input: #2c1b14;
+  --bg-overlay: #2d1c15;
+  --bg-overlay-2: #38241a;
+  --bg-tooltip: #3d281d;
+  --bg-hover: rgba(254, 215, 170, 0.05);
+  --bg-hover-strong: rgba(254, 215, 170, 0.08);
+  --bg-active: rgba(254, 215, 170, 0.1);
+  --line: rgba(254, 215, 170, 0.07);
+  --line-2: rgba(254, 215, 170, 0.1);
+  --text-muted: #b39b8b;
+  --text-faint: #887264;
+  --accent-200: #fed7aa;
+  --accent-300: #fdba74;
+  --accent-400: #fb923c;
+  --accent: #f97316;
+  --accent-hover: #fa8533;
+  --accent-press: #ea580c;
+  --accent-600: #ea580c;
+  --accent-700: #c2410c;
+  --accent-900: #7c2d12;
+  --accent-ink: #1a0802;
+  --accent-text: #fdba74;
+  --app-glow: rgba(251, 146, 60, 0.22);
+}
+
+/* ---- Winter Night (seasonal) ------------------------------------------ */
+:root[data-theme='winter-night'] {
+  --bg-app: #050a12;
+  --bg-sidebar: #0a1220;
+  --bg-main: #0e1828;
+  --bg-raised: #132033;
+  --bg-input: #152338;
+  --bg-overlay: #162439;
+  --bg-overlay-2: #1c2d46;
+  --bg-tooltip: #20314b;
+  --bg-hover: rgba(224, 242, 254, 0.05);
+  --bg-hover-strong: rgba(224, 242, 254, 0.08);
+  --bg-active: rgba(224, 242, 254, 0.1);
+  --line: rgba(224, 242, 254, 0.08);
+  --line-2: rgba(224, 242, 254, 0.11);
+  --text-muted: #94a6ba;
+  --text-faint: #6a7c91;
+  --accent-200: #e0f2fe;
+  --accent-300: #bae6fd;
+  --accent-400: #7dd3fc;
+  --accent: #38bdf8;
+  --accent-hover: #52c7f9;
+  --accent-press: #0ea5e9;
+  --accent-600: #0284c7;
+  --accent-700: #0369a1;
+  --accent-900: #0c4a6e;
+  --accent-ink: #031420;
+  --accent-text: #7dd3fc;
+  --app-glow: rgba(186, 230, 253, 0.12);
+}
+
+/* ---- Haunted Night (seasonal) ----------------------------------------- */
+:root[data-theme='haunted'] {
+  --bg-app: #0a0612;
+  --bg-sidebar: #130b1d;
+  --bg-main: #190f26;
+  --bg-raised: #1f1430;
+  --bg-input: #221635;
+  --bg-overlay: #231736;
+  --bg-overlay-2: #2c1e43;
+  --bg-tooltip: #312148;
+  --bg-hover: rgba(233, 213, 255, 0.05);
+  --bg-hover-strong: rgba(233, 213, 255, 0.08);
+  --bg-active: rgba(233, 213, 255, 0.1);
+  --line: rgba(233, 213, 255, 0.07);
+  --line-2: rgba(233, 213, 255, 0.1);
+  --text-muted: #a596b5;
+  --text-faint: #7a6c8b;
+  --accent-200: #fed7aa;
+  --accent-300: #fdba74;
+  --accent-400: #fb923c;
+  --accent: #f97316;
+  --accent-hover: #fa8533;
+  --accent-press: #ea580c;
+  --accent-600: #ea580c;
+  --accent-700: #c2410c;
+  --accent-900: #7c2d12;
+  --accent-ink: #1a0802;
+  --accent-text: #fdba74;
+  --app-glow: rgba(147, 51, 234, 0.24);
+}
+
+/* ---- Daylight (light) ------------------------------------------------- */
+:root[data-theme='daylight'] {
+  color-scheme: light;
+  --bg-app: #e6ecee;
+  --bg-sidebar: #f2f5f6;
+  --bg-main: #ffffff;
+  --bg-raised: #f4f7f8;
+  --bg-input: #eef2f3;
+  --bg-overlay: #ffffff;
+  --bg-overlay-2: #f1f4f5;
+  --bg-tooltip: #111827;
+  --bg-hover: rgba(15, 23, 30, 0.045);
+  --bg-hover-strong: rgba(15, 23, 30, 0.07);
+  --bg-active: rgba(15, 23, 30, 0.09);
+  --bg-message-hover: rgba(15, 23, 30, 0.03);
+  --bg-well: rgba(15, 23, 30, 0.06);
+  --line: rgba(15, 23, 30, 0.08);
+  --line-2: rgba(15, 23, 30, 0.11);
+  --line-strong: rgba(15, 23, 30, 0.18);
+  --highlight-top: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --text-strong: #0b1214;
+  --text: #253034;
+  --text-muted: #5b686e;
+  --text-faint: #7f8b91;
+  --text-disabled: #a9b3b8;
+  --accent-200: #065f46;
+  --accent-300: #047857;
+  --accent-400: #059669;
+  --accent: #059669;
+  --accent-hover: #047857;
+  --accent-press: #065f46;
+  --accent-ink: #ffffff;
+  --accent-text: #047857;
+  --offline: #8a959b;
+  --danger-text: #d1243a;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 30, 0.12);
+  --shadow-md: 0 6px 20px -6px rgba(15, 23, 30, 0.2);
+  --shadow-pop: 0 16px 40px -12px rgba(15, 23, 30, 0.28), 0 2px 6px rgba(15, 23, 30, 0.1);
+  --shadow-modal: 0 32px 80px -16px rgba(15, 23, 30, 0.35), 0 4px 14px rgba(15, 23, 30, 0.12);
+  --app-glow: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+:root[data-theme='daylight'] .workspace {
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    0 20px 60px -24px rgba(15, 23, 30, 0.25);
+}
+
+:root[data-theme='daylight'] .tooltip,
+:root[data-theme='daylight'] .tooltip * {
+  color: #f1f5f6;
+}
+
+:root[data-theme='daylight'] .code-block,
+:root[data-theme='daylight'] .msg-content pre {
+  color: #d3dadd;
+}
+
+/* ---- Contrast stays on top of any theme ------------------------------- */
+:root[data-contrast='high']:not([data-theme='daylight']) {
+  --text: #e8edef;
+  --text-muted: #aab5bb;
+  --text-faint: #8a959c;
+  --line: rgba(255, 255, 255, 0.12);
+  --line-2: rgba(255, 255, 255, 0.16);
+  --line-strong: rgba(255, 255, 255, 0.24);
+}
+
+:root[data-contrast='high'][data-theme='daylight'] {
+  --text: #10181b;
+  --text-muted: #3d494e;
+  --text-faint: #56636a;
+  --line: rgba(15, 23, 30, 0.16);
+  --line-2: rgba(15, 23, 30, 0.22);
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(-3%, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(3%, 4%, 0) scale(1.08);
+  }
+}
+
+:root[data-motion='reduced'] .app::before {
+  animation: none !important;
+}
+
+/* ==========================================================================
+   Script-specific font stacks and RTL
+   ========================================================================== */
+
+:root:lang(ar) {
+  --font-sans: 'Twemoji Country Flags', 'Inter Variable', 'Segoe UI', Tahoma, 'Noto Sans Arabic', 'Geeza Pro', sans-serif;
+}
+
+:root:lang(ja) {
+  --font-sans: 'Twemoji Country Flags', 'Inter Variable', 'Hiragino Sans', 'Yu Gothic UI', 'Meiryo', 'Noto Sans JP', sans-serif;
+}
+
+:root:lang(ko) {
+  --font-sans: 'Twemoji Country Flags', 'Inter Variable', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+}
+
+:root:lang(zh-CN) {
+  --font-sans: 'Twemoji Country Flags', 'Inter Variable', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+
+/* Mirror directional icons in right-to-left languages. */
+[dir='rtl'] .mobile-back svg,
+[dir='rtl'] .settings-mobile-head svg,
+[dir='rtl'] .template-chev,
+[dir='rtl'] .self-menu-chev,
+[dir='rtl'] .collapse-head svg {
+  transform: scaleX(-1);
+}
+
+/* User content keeps its own direction: an English message reads correctly
+   in the Arabic UI and vice versa (content is never translated). */
+.msg-content,
+.embed-desc,
+.pcard-bio,
+.msg-reply-text,
+.preview-card-text,
+.pcard-status,
+.member-sub {
+  unicode-bidi: plaintext;
+}
+
+.msg-author,
+.sname,
+.member-name,
+.pcard-name,
+.pcard-username,
+.friend-name,
+.channel-name,
+.server-name {
+  unicode-bidi: isolate;
+}
+
+[dir='rtl'] .msg-content,
+[dir='rtl'] .embed-desc,
+[dir='rtl'] .pcard-bio,
+[dir='rtl'] .preview-card-text {
+  text-align: right;
+}
+
+[dir='rtl'] pre,
+[dir='rtl'] code,
+[dir='rtl'] kbd,
+[dir='rtl'] .code-block {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+}
+
+[dir='rtl'] .sidebar {
+  box-shadow: inset 1px 0 0 var(--line);
+}
+
+[dir='rtl'] .members {
+  box-shadow: inset -1px 0 0 var(--line);
+}
+
+/* The banner cut-out follows the avatar to the other side. */
+[dir='rtl'] .pcard-banner,
+[dir='rtl'] .pmodal-banner {
+  -webkit-mask: radial-gradient(circle calc(var(--pc-avatar) / 2 + var(--pc-ring)) at calc(100% - (var(--pc-left) + var(--pc-ring) + var(--pc-avatar) / 2)) 100%, transparent 98.5%, #000 100%);
+  mask: radial-gradient(circle calc(var(--pc-avatar) / 2 + var(--pc-ring)) at calc(100% - (var(--pc-left) + var(--pc-ring) + var(--pc-avatar) / 2)) 100%, transparent 98.5%, #000 100%);
+}
+
+/* Embeds, topics and statuses are user content as well. */
+.embed-title,
+.embed-author,
+.embed-provider,
+.embed-footer,
+.embed-field-name,
+.embed-field-value,
+.view-header-topic,
+.pcard-bio,
+.activity-text span,
+.member-sub {
+  unicode-bidi: plaintext;
+}
+
+[dir='rtl'] .embed-field-name,
+[dir='rtl'] .embed-field-value,
+[dir='rtl'] .embed-title,
+[dir='rtl'] .embed-footer {
+  text-align: right;
+}

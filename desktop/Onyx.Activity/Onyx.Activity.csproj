@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><RootNamespace>Onyx.Activity</RootNamespace><OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWindowsForms>true</UseWindowsForms><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><AssemblyName>ONYX-Activity</AssemblyName><Version>0.1.1</Version><ApplicationManifest>app.manifest</ApplicationManifest><PublishSingleFile>true</PublishSingleFile><SelfContained>true</SelfContained><EnableCompressionInSingleFile>true</EnableCompressionInSingleFile><IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract></PropertyGroup>
+  <ItemGroup><Compile Include="../Shared/*.cs"/><EmbeddedResource Include="strings.json"/><EmbeddedResource Include="onyx.png"/></ItemGroup>
+</Project>

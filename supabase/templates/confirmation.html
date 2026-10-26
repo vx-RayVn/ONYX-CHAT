@@ -1,0 +1,132 @@
+{{- $l := printf "%v" .Data.locale -}}
+{{- $lang := "en" -}}{{- $dir := "ltr" -}}{{- $validity := "Valid for 15 minutes · works only once" -}}{{- $device := "Reading this on the device where ONYX is open? Then one tap is enough:" -}}{{- $never := "Never share this code. The ONYX team will never ask you for it." -}}{{- $sentToA := "This email was sent to " -}}{{- $sentToB := "." -}}{{- $auto := "Automatic message – please don’t reply." -}}{{- $tagline := "Your community. Your style. Free." -}}{{- $preheaderA := "Your code: " -}}{{- $preheaderB := " – valid for 15 minutes." -}}{{- $eyebrow := "Welcome to ONYX" -}}{{- $title := "Confirm your email address" -}}{{- $intro := "Almost done! Enter this code in the ONYX window where you just signed up to activate your account." -}}{{- $codeLabel := "Your confirmation code" -}}{{- $button := "Confirm email address" -}}{{- $ignore := "Didn’t create an ONYX account? Just ignore this email – without the code, no account gets activated." -}}
+{{- if eq $l "de" -}}{{- $lang = "de" -}}{{- $dir = "ltr" -}}{{- $validity = "15 Minuten gültig · nur einmal verwendbar" -}}{{- $device = "Du liest das auf dem Gerät, auf dem ONYX offen ist? Dann reicht ein Tipp:" -}}{{- $never = "Gib diesen Code niemals weiter. Das ONYX-Team wird dich nie danach fragen." -}}{{- $sentToA = "Diese E-Mail ging an " -}}{{- $sentToB = "." -}}{{- $auto = "Automatische Nachricht – bitte nicht antworten." -}}{{- $tagline = "Deine Community. Dein Style. Kostenlos." -}}{{- $preheaderA = "Dein Code: " -}}{{- $preheaderB = " – 15 Minuten gültig." -}}{{- $eyebrow = "Willkommen bei ONYX" -}}{{- $title = "Bestätige deine E-Mail-Adresse" -}}{{- $intro = "Fast geschafft! Gib diesen Code im ONYX-Fenster ein, in dem du dich gerade registriert hast, um dein Konto zu aktivieren." -}}{{- $codeLabel = "Dein Bestätigungscode" -}}{{- $button = "E-Mail-Adresse bestätigen" -}}{{- $ignore = "Du hast kein ONYX-Konto erstellt? Dann ignoriere diese E-Mail einfach – ohne den Code wird kein Konto aktiviert." -}}
+{{- else if eq $l "es" -}}{{- $lang = "es" -}}{{- $dir = "ltr" -}}{{- $validity = "Válido durante 15 minutos · solo se puede usar una vez" -}}{{- $device = "¿Lo estás leyendo en el dispositivo donde tienes ONYX abierto? Entonces basta con un toque:" -}}{{- $never = "Nunca compartas este código. El equipo de ONYX jamás te lo pedirá." -}}{{- $sentToA = "Este correo se envió a " -}}{{- $sentToB = "." -}}{{- $auto = "Mensaje automático: por favor, no respondas." -}}{{- $tagline = "Tu comunidad. Tu estilo. Gratis." -}}{{- $preheaderA = "Tu código: " -}}{{- $preheaderB = " – válido durante 15 minutos." -}}{{- $eyebrow = "Te damos la bienvenida a ONYX" -}}{{- $title = "Confirma tu correo electrónico" -}}{{- $intro = "¡Ya casi está! Introduce este código en la ventana de ONYX donde acabas de registrarte para activar tu cuenta." -}}{{- $codeLabel = "Tu código de confirmación" -}}{{- $button = "Confirmar correo" -}}{{- $ignore = "¿No has creado una cuenta de ONYX? Simplemente ignora este correo: sin el código no se activará ninguna cuenta." -}}
+{{- else if eq $l "fr" -}}{{- $lang = "fr" -}}{{- $dir = "ltr" -}}{{- $validity = "Valable 15 minutes · utilisable une seule fois" -}}{{- $device = "Tu lis ceci sur l’appareil où ONYX est ouvert ? Alors un seul geste suffit :" -}}{{- $never = "Ne partage jamais ce code. L’équipe ONYX ne te le demandera jamais." -}}{{- $sentToA = "Cet e-mail a été envoyé à " -}}{{- $sentToB = "." -}}{{- $auto = "Message automatique – merci de ne pas répondre." -}}{{- $tagline = "Ta communauté. Ton style. Gratuit." -}}{{- $preheaderA = "Ton code : " -}}{{- $preheaderB = " – valable 15 minutes." -}}{{- $eyebrow = "Bienvenue sur ONYX" -}}{{- $title = "Confirme ton adresse e-mail" -}}{{- $intro = "Presque fini ! Saisis ce code dans la fenêtre ONYX où tu viens de t’inscrire pour activer ton compte." -}}{{- $codeLabel = "Ton code de confirmation" -}}{{- $button = "Confirmer l’adresse e-mail" -}}{{- $ignore = "Tu n’as pas créé de compte ONYX ? Ignore simplement cet e-mail – sans le code, aucun compte ne sera activé." -}}
+{{- else if eq $l "it" -}}{{- $lang = "it" -}}{{- $dir = "ltr" -}}{{- $validity = "Valido per 15 minuti · utilizzabile una sola volta" -}}{{- $device = "Stai leggendo sul dispositivo dove ONYX è aperto? Allora basta un tocco:" -}}{{- $never = "Non condividere mai questo codice. Il team di ONYX non te lo chiederà mai." -}}{{- $sentToA = "Questa email è stata inviata a " -}}{{- $sentToB = "." -}}{{- $auto = "Messaggio automatico, per favore non rispondere." -}}{{- $tagline = "La tua community. Il tuo stile. Gratis." -}}{{- $preheaderA = "Il tuo codice: " -}}{{- $preheaderB = " – valido per 15 minuti." -}}{{- $eyebrow = "Ti diamo il benvenuto su ONYX" -}}{{- $title = "Conferma il tuo indirizzo email" -}}{{- $intro = "Ci sei quasi! Inserisci questo codice nella finestra di ONYX in cui hai appena completato la registrazione per attivare il tuo account." -}}{{- $codeLabel = "Il tuo codice di conferma" -}}{{- $button = "Conferma indirizzo email" -}}{{- $ignore = "Non hai creato un account ONYX? Ignora semplicemente questa email: senza il codice non verrà attivato nessun account." -}}
+{{- else if eq $l "pt-BR" -}}{{- $lang = "pt-BR" -}}{{- $dir = "ltr" -}}{{- $validity = "Válido por 15 minutos · só pode ser usado uma vez" -}}{{- $device = "Está lendo no dispositivo em que o ONYX está aberto? Então basta um toque:" -}}{{- $never = "Nunca compartilhe este código. A equipe do ONYX nunca vai pedir por ele." -}}{{- $sentToA = "Este e-mail foi enviado para " -}}{{- $sentToB = "." -}}{{- $auto = "Mensagem automática – não responda." -}}{{- $tagline = "Sua comunidade. Seu estilo. Grátis." -}}{{- $preheaderA = "Seu código: " -}}{{- $preheaderB = " – válido por 15 minutos." -}}{{- $eyebrow = "Boas-vindas ao ONYX" -}}{{- $title = "Confirme seu endereço de e-mail" -}}{{- $intro = "Quase lá! Digite este código na janela do ONYX em que você acabou de se cadastrar para ativar sua conta." -}}{{- $codeLabel = "Seu código de confirmação" -}}{{- $button = "Confirmar e-mail" -}}{{- $ignore = "Não criou uma conta no ONYX? É só ignorar este e-mail – sem o código, nenhuma conta será ativada." -}}
+{{- else if eq $l "nl" -}}{{- $lang = "nl" -}}{{- $dir = "ltr" -}}{{- $validity = "15 minuten geldig · maar één keer te gebruiken" -}}{{- $device = "Lees je dit op het apparaat waarop ONYX openstaat? Dan is één tik genoeg:" -}}{{- $never = "Deel deze code nooit. Het ONYX-team zal er nooit om vragen." -}}{{- $sentToA = "Deze e-mail is verstuurd naar " -}}{{- $sentToB = "." -}}{{- $auto = "Automatisch bericht – graag niet beantwoorden." -}}{{- $tagline = "Jouw community. Jouw stijl. Gratis." -}}{{- $preheaderA = "Je code: " -}}{{- $preheaderB = " – 15 minuten geldig." -}}{{- $eyebrow = "Welkom bij ONYX" -}}{{- $title = "Bevestig je e-mailadres" -}}{{- $intro = "Bijna klaar! Voer deze code in het ONYX-venster in waarin je je net hebt geregistreerd om je account te activeren." -}}{{- $codeLabel = "Je bevestigingscode" -}}{{- $button = "E-mailadres bevestigen" -}}{{- $ignore = "Geen ONYX-account aangemaakt? Negeer deze e-mail dan gewoon – zonder de code wordt er geen account geactiveerd." -}}
+{{- else if eq $l "pl" -}}{{- $lang = "pl" -}}{{- $dir = "ltr" -}}{{- $validity = "Ważny 15 minut · można użyć tylko raz" -}}{{- $device = "Czytasz to na urządzeniu, na którym masz otwarty ONYX? Wystarczy jedno dotknięcie:" -}}{{- $never = "Nigdy nikomu nie podawaj tego kodu. Zespół ONYX nigdy o niego nie poprosi." -}}{{- $sentToA = "Ten e-mail został wysłany na adres " -}}{{- $sentToB = "." -}}{{- $auto = "Wiadomość automatyczna – prosimy na nią nie odpowiadać." -}}{{- $tagline = "Twoja społeczność. Twój styl. Za darmo." -}}{{- $preheaderA = "Twój kod: " -}}{{- $preheaderB = " – ważny 15 minut." -}}{{- $eyebrow = "Witaj w ONYX" -}}{{- $title = "Potwierdź swój adres e-mail" -}}{{- $intro = "Już prawie! Wpisz ten kod w oknie ONYX, w którym trwa rejestracja, aby aktywować konto." -}}{{- $codeLabel = "Twój kod potwierdzający" -}}{{- $button = "Potwierdź adres e-mail" -}}{{- $ignore = "To nie Ty zakładasz konto w ONYX? Po prostu zignoruj tę wiadomość – bez kodu żadne konto nie zostanie aktywowane." -}}
+{{- else if eq $l "tr" -}}{{- $lang = "tr" -}}{{- $dir = "ltr" -}}{{- $validity = "15 dakika geçerli · yalnızca bir kez kullanılabilir" -}}{{- $device = "Bunu ONYX’in açık olduğu cihazda mı okuyorsun? O zaman tek dokunuş yeterli:" -}}{{- $never = "Bu kodu asla kimseyle paylaşma. ONYX ekibi bunu senden asla istemez." -}}{{- $sentToA = "Bu e-posta " -}}{{- $sentToB = " adresine gönderildi." -}}{{- $auto = "Otomatik mesaj – lütfen yanıtlama." -}}{{- $tagline = "Senin topluluğun. Senin tarzın. Ücretsiz." -}}{{- $preheaderA = "Kodun: " -}}{{- $preheaderB = " – 15 dakika geçerli." -}}{{- $eyebrow = "ONYX’e hoş geldin" -}}{{- $title = "E-posta adresini onayla" -}}{{- $intro = "Neredeyse bitti! Hesabını etkinleştirmek için bu kodu az önce kayıt olduğun ONYX penceresine gir." -}}{{- $codeLabel = "Onay kodun" -}}{{- $button = "E-posta adresini onayla" -}}{{- $ignore = "ONYX hesabı oluşturmadın mı? Bu e-postayı görmezden gel – kod olmadan hiçbir hesap etkinleştirilmez." -}}
+{{- else if eq $l "ru" -}}{{- $lang = "ru" -}}{{- $dir = "ltr" -}}{{- $validity = "Действует 15 минут · можно использовать только один раз" -}}{{- $device = "Читаешь это на устройстве, где открыт ONYX? Тогда достаточно одного нажатия:" -}}{{- $never = "Никому не сообщай этот код. Команда ONYX никогда не попросит его у тебя." -}}{{- $sentToA = "Это письмо отправлено на " -}}{{- $sentToB = "." -}}{{- $auto = "Автоматическое сообщение – не отвечай на него." -}}{{- $tagline = "Твоё сообщество. Твой стиль. Бесплатно." -}}{{- $preheaderA = "Твой код: " -}}{{- $preheaderB = " – действует 15 минут." -}}{{- $eyebrow = "Добро пожаловать в ONYX" -}}{{- $title = "Подтверди адрес электронной почты" -}}{{- $intro = "Почти готово! Введи этот код в окне ONYX, где идёт регистрация, чтобы активировать аккаунт." -}}{{- $codeLabel = "Твой код подтверждения" -}}{{- $button = "Подтвердить почту" -}}{{- $ignore = "Аккаунт ONYX создавал не ты? Просто проигнорируй это письмо – без кода аккаунт не будет активирован." -}}
+{{- else if eq $l "uk" -}}{{- $lang = "uk" -}}{{- $dir = "ltr" -}}{{- $validity = "Дійсний 15 хвилин · можна використати лише один раз" -}}{{- $device = "Читаєш це на пристрої, де відкрито ONYX? Тоді достатньо одного натискання:" -}}{{- $never = "Нікому не повідомляй цей код. Команда ONYX ніколи не попросить його в тебе." -}}{{- $sentToA = "Цей лист надіслано на " -}}{{- $sentToB = "." -}}{{- $auto = "Автоматичне повідомлення – не відповідай на нього." -}}{{- $tagline = "Твоя спільнота. Твій стиль. Безкоштовно." -}}{{- $preheaderA = "Твій код: " -}}{{- $preheaderB = " – дійсний 15 хвилин." -}}{{- $eyebrow = "Ласкаво просимо до ONYX" -}}{{- $title = "Підтвердь адресу електронної пошти" -}}{{- $intro = "Майже готово! Введи цей код у вікні ONYX, де триває реєстрація, щоб активувати акаунт." -}}{{- $codeLabel = "Твій код підтвердження" -}}{{- $button = "Підтвердити пошту" -}}{{- $ignore = "Акаунт ONYX створював не ти? Просто проігноруй цей лист – без коду акаунт не буде активовано." -}}
+{{- else if eq $l "ar" -}}{{- $lang = "ar" -}}{{- $dir = "rtl" -}}{{- $validity = "صالح لمدة 15 دقيقة · يُستخدم مرة واحدة فقط" -}}{{- $device = "هل تقرأ هذه الرسالة على الجهاز المفتوح عليه ONYX؟ تكفي نقرة واحدة:" -}}{{- $never = "لا تشارك هذا الرمز مع أي شخص. لن يطلبه منك فريق ONYX أبدًا." -}}{{- $sentToA = "أُرسلت هذه الرسالة إلى " -}}{{- $sentToB = "." -}}{{- $auto = "رسالة تلقائية – يُرجى عدم الرد عليها." -}}{{- $tagline = "مجتمعك. أسلوبك. مجانًا." -}}{{- $preheaderA = "رمزك: " -}}{{- $preheaderB = " – صالح لمدة 15 دقيقة." -}}{{- $eyebrow = "مرحبًا بك في ONYX" -}}{{- $title = "أكّد بريدك الإلكتروني" -}}{{- $intro = "اقتربت من الانتهاء! أدخل هذا الرمز في نافذة ONYX التي سجّلت فيها للتو لتفعيل حسابك." -}}{{- $codeLabel = "رمز التأكيد" -}}{{- $button = "تأكيد البريد الإلكتروني" -}}{{- $ignore = "لم تُنشئ حسابًا على ONYX؟ تجاهل هذه الرسالة ببساطة – بدون الرمز لن يتم تفعيل أي حساب." -}}
+{{- else if eq $l "ja" -}}{{- $lang = "ja" -}}{{- $dir = "ltr" -}}{{- $validity = "有効期限は15分・1回のみ使用できます" -}}{{- $device = "ONYX を開いている端末でこのメールを読んでいる場合は、ワンタップで完了します：" -}}{{- $never = "このコードは誰にも教えないでください。ONYX チームがコードを尋ねることはありません。" -}}{{- $sentToA = "このメールは " -}}{{- $sentToB = " に送信されました。" -}}{{- $auto = "このメールは自動送信です。返信しないでください。" -}}{{- $tagline = "あなたのコミュニティ。あなたのスタイル。無料。" -}}{{- $preheaderA = "確認コード：" -}}{{- $preheaderB = "（15分間有効）" -}}{{- $eyebrow = "ONYX へようこそ" -}}{{- $title = "メールアドレスを確認してください" -}}{{- $intro = "あと少しです！登録手続き中の ONYX の画面にこのコードを入力して、アカウントを有効にしてください。" -}}{{- $codeLabel = "確認コード" -}}{{- $button = "メールアドレスを確認" -}}{{- $ignore = "ONYX のアカウントを作成していない場合は、このメールを無視してください。コードがなければアカウントは有効になりません。" -}}
+{{- else if eq $l "ko" -}}{{- $lang = "ko" -}}{{- $dir = "ltr" -}}{{- $validity = "15분 동안 유효 · 한 번만 사용할 수 있습니다" -}}{{- $device = "ONYX가 열려 있는 기기에서 이 메일을 보고 계신가요? 그럼 한 번만 누르면 됩니다:" -}}{{- $never = "이 코드를 다른 사람과 절대 공유하지 마세요. ONYX 팀은 절대 코드를 묻지 않습니다." -}}{{- $sentToA = "이 이메일은 " -}}{{- $sentToB = "(으)로 전송되었습니다." -}}{{- $auto = "자동 발송 메시지입니다. 회신하지 마세요." -}}{{- $tagline = "나의 커뮤니티. 나의 스타일. 무료." -}}{{- $preheaderA = "인증 코드: " -}}{{- $preheaderB = " – 15분 동안 유효합니다." -}}{{- $eyebrow = "ONYX에 오신 것을 환영합니다" -}}{{- $title = "이메일 주소를 인증하세요" -}}{{- $intro = "거의 다 됐어요! 방금 가입한 ONYX 창에 이 코드를 입력해 계정을 활성화하세요." -}}{{- $codeLabel = "인증 코드" -}}{{- $button = "이메일 주소 인증" -}}{{- $ignore = "ONYX 계정을 만들지 않으셨나요? 이 이메일은 무시하셔도 됩니다. 코드가 없으면 어떤 계정도 활성화되지 않습니다." -}}
+{{- else if eq $l "zh-CN" -}}{{- $lang = "zh-CN" -}}{{- $dir = "ltr" -}}{{- $validity = "15 分钟内有效 · 仅可使用一次" -}}{{- $device = "正在打开 ONYX 的设备上阅读此邮件？那么轻点一下即可：" -}}{{- $never = "请勿将此验证码告诉任何人。ONYX 团队绝不会向你索要验证码。" -}}{{- $sentToA = "此邮件已发送至 " -}}{{- $sentToB = "。" -}}{{- $auto = "这是一封自动发送的邮件，请勿回复。" -}}{{- $tagline = "你的社区。你的风格。免费。" -}}{{- $preheaderA = "你的验证码：" -}}{{- $preheaderB = "，15 分钟内有效。" -}}{{- $eyebrow = "欢迎来到 ONYX" -}}{{- $title = "确认你的邮箱地址" -}}{{- $intro = "就差一步！请在你刚刚注册的 ONYX 窗口中输入此验证码，以激活你的账户。" -}}{{- $codeLabel = "你的确认码" -}}{{- $button = "确认邮箱地址" -}}{{- $ignore = "没有创建 ONYX 账户？忽略此邮件即可——没有验证码，任何账户都不会被激活。" -}}
+{{- end -}}
+<!doctype html>
+<html lang="{{ $lang }}" dir="{{ $dir }}" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
+<meta name="color-scheme" content="dark">
+<meta name="supported-color-schemes" content="dark">
+<title>{{ $title }}</title>
+<!-- ONYX · Supabase › Authentication › Emails › "Confirm sign up" · built by supabase/templates/src/build.mjs -->
+<style>
+  :root { color-scheme: dark; supported-color-schemes: dark; }
+  body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+  a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font: inherit !important; }
+  @media (max-width: 540px) {
+    .onyx-outer { padding: 24px 12px !important; }
+    .onyx-card { padding: 26px 20px 24px !important; border-radius: 16px !important; }
+    .onyx-title { font-size: 22px !important; }
+    .onyx-code { font-size: 30px !important; letter-spacing: 6px !important; padding-left: 6px !important; }
+  }
+</style>
+</head>
+<body class="body" style="margin:0;padding:0;background:#07090b;" bgcolor="#07090b">
+<div style="display:none;max-height:0;max-width:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#07090b;">{{ $preheaderA }}{{ .Token }}{{ $preheaderB }}&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#07090b" style="background:#07090b;">
+  <tr>
+    <td class="onyx-outer" align="center" style="padding:40px 16px;">
+      <!--[if mso]><table role="presentation" align="center" width="520" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
+      <table role="presentation" align="center" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:520px;">
+        <tr>
+          <td class="onyx-card" bgcolor="#161c21" style="padding:32px 32px 30px;background-color:#161c21;background-image:radial-gradient(120% 70% at 50% 0%, rgba(16,185,129,0.14), rgba(16,185,129,0) 62%);border:1px solid #232b31;border-radius:20px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="padding:0 0 26px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td style="vertical-align:middle;"><img src="https://onyxchat.site/brand/onyx-logo-512.png" width="36" height="36" alt="" style="display:block;width:36px;height:36px;border:0;border-radius:10px;"></td>
+                      <td style="vertical-align:middle;padding:0 12px;font:800 16px/1 Inter,'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;letter-spacing:0.08em;color:#bdcbd4;">ONYX</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#0f2a22;font:700 11px/1.4 Inter,'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;letter-spacing:0.06em;text-transform:uppercase;color:#3ddba3;">{{ $eyebrow }}</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:14px 0 0;">
+                  <h1 class="onyx-title" style="margin:0;font:800 24px/1.3 Inter,'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;color:#f4f8fa;">{{ $title }}</h1>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:10px 0 0;">
+                  <p style="margin:0;font:400 15px/1.6 Inter,'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;color:#d4dfe6;">{{ $intro }}</p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:26px 0 0;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#0c1014" style="background:#0c1014;border:1px solid #1b4d3d;border-radius:14px;">
+                    <tr>
+                      <td align="center" style="padding:22px 16px 18px;">
+                        <p style="margin:0;font:700 11px/1.4 Inter,'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:#bdcbd4;">{{ $codeLabel }}</p>
+                        <p class="onyx-code" dir="ltr" style="margin:10px 0 0;padding-left:8px;font:700 36px/1.15 'Cascadia Code','SF Mono',Menlo,Consolas,'Roboto Mono',monospace;letter-spacing:8px;color:#f4f8fa;-webkit-user-select:all;user-select:all;">{{ .Token }}</p>
+                        <p style="margin:0;padding-top:12px;font:500 12px/1.5 Inter,'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;color:#b4c3cd;">{{ $validity }}</p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:24px 0 12px;">
+                  <p style="margin:0;font:400 14px/1.55 Inter,'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;color:#bdcbd4;">{{ $device }}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td align="center" bgcolor="#10b981" style="border-radius:10px;background:#10b981;mso-padding-alt:13px 22px;">
+                        <a href="{{ .SiteURL }}?token_hash={{ .TokenHash }}&amp;type=email" target="_blank" style="display:inline-block;padding:13px 22px;font:700 15px/1.2 Inter,'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;color:#03130c;text-decoration:none;border-radius:10px;">{{ $button }}</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:28px 0 0;">
+                  <div style="height:1px;line-height:1px;font-size:0;background:#232b31;">&nbsp;</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:20px 0 0;">
+                  <p style="margin:0;font:400 13px/1.6 Inter,'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;color:#bdcbd4;">{{ $ignore }}</p>
+                  <p style="margin:0;padding-top:10px;font:600 13px/1.6 Inter,'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;color:#e2eaf0;">{{ $never }}</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:22px 12px 0;font:400 12px/1.7 Inter,'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;color:#b4c3cd;">
+            {{ $sentToA }}<span dir="ltr">{{ .Email }}</span>{{ $sentToB }}<br>
+            <span style="font-weight:700;letter-spacing:0.08em;color:#bdcbd4;">ONYX</span> · {{ $tagline }}<br>
+            {{ $auto }}
+          </td>
+        </tr>
+      </table>
+      <!--[if mso]></td></tr></table><![endif]-->
+    </td>
+  </tr>
+</table>
+</body>
+</html>
