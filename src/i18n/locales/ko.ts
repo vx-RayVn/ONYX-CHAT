@@ -2451,6 +2451,19 @@ const dict: Dict = {
   "This promotion or subscription is already active.": "이 프로모션 또는 구독은 이미 활성화되어 있습니다.",
   // In-call noise controls (App 37)
   "Standard noise suppression": "표준 소음 억제",
+  // Account deletion reauthentication (package 40)
+  "Confirm your sign-in again before deleting your account.": "계정을 삭제하기 전에 로그인을 다시 확인하세요.",
+  "Guest profiles have no password. Confirm your username to delete this guest profile.": "게스트 프로필에는 비밀번호가 없습니다. 이 게스트 프로필을 삭제하려면 사용자 이름을 확인하세요.",
+  "Confirm your sign-in": "로그인 확인",
+  "Enter your password again to confirm it is you.": "본인 확인을 위해 비밀번호를 다시 입력하세요.",
+  "We will email a code to your account address. Enter it here to confirm it is you.": "계정의 이메일 주소로 코드를 보냅니다. 본인 확인을 위해 여기에 입력하세요.",
+  "Enter the sign-in code from your email here. Keep this dialog open.": "이메일로 받은 로그인 코드를 여기에 입력하세요. 이 창을 닫지 마세요.",
+  "Email code": "이메일 코드",
+  "Confirm a new authenticator code before deleting your account.": "계정을 삭제하기 전에 인증 앱의 새 코드를 확인하세요.",
+  "Sign-in confirmed. Now confirm your username below.": "로그인이 확인되었습니다. 이제 아래에서 사용자 이름을 확인하세요.",
+  "Send confirmation code": "확인 코드 보내기",
+  "Confirm sign-in": "로그인 확인",
+  "Delete guest profile": "게스트 프로필 삭제",
 };
 
 export default dict;

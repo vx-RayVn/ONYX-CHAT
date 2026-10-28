@@ -2432,6 +2432,19 @@ const dict: Dict = {
   "This promotion or subscription is already active.": "Deze promotie of dit abonnement is al actief.",
   // In-call noise controls (App 37)
   "Standard noise suppression": "Standaard ruisonderdrukking",
+  // Account deletion reauthentication (package 40)
+  "Confirm your sign-in again before deleting your account.": "Bevestig je aanmelding opnieuw voordat je je account verwijdert.",
+  "Guest profiles have no password. Confirm your username to delete this guest profile.": "Gastprofielen hebben geen wachtwoord. Bevestig je gebruikersnaam om dit gastprofiel te verwijderen.",
+  "Confirm your sign-in": "Bevestig je aanmelding",
+  "Enter your password again to confirm it is you.": "Voer je wachtwoord opnieuw in om je identiteit te bevestigen.",
+  "We will email a code to your account address. Enter it here to confirm it is you.": "We mailen een code naar het adres van je account. Voer deze hier in om je identiteit te bevestigen.",
+  "Enter the sign-in code from your email here. Keep this dialog open.": "Voer hier de aanmeldcode uit je e-mail in. Houd dit venster open.",
+  "Email code": "E-mailcode",
+  "Confirm a new authenticator code before deleting your account.": "Bevestig een nieuwe code uit je authenticator voordat je je account verwijdert.",
+  "Sign-in confirmed. Now confirm your username below.": "Aanmelding bevestigd. Bevestig nu hieronder je gebruikersnaam.",
+  "Send confirmation code": "Bevestigingscode sturen",
+  "Confirm sign-in": "Aanmelding bevestigen",
+  "Delete guest profile": "Gastprofiel verwijderen",
 };
 
 export default dict;

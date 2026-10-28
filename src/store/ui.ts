@@ -100,7 +100,7 @@ export const useUI = create<UIState>()((set) => ({
   clearPending: (channelId) => set((s) => ({ pending: { ...s.pending, [channelId]: [] } })),
   insertRequest: null,
   requestInsert: (channelId, text) => set({ insertRequest: { channelId, text, nonce: Date.now() } }),
-  openModal: (modal) => {if(!FEATURES.onyxPlus&&modal.type==='plusCheckout')return;set({ modal:guestActor()&&['accountSwitcher','createChannel','createCategory','invite','newDM','prompt','customStatus','crop','plusCheckout','ban','suspend','deleteAccount'].includes(modal.type)?{type:'guestUpgrade',reason:modal.type==='customStatus'||modal.type==='crop'?'profile':'general'}:modal });},
+  openModal: (modal) => {if(!FEATURES.onyxPlus&&modal.type==='plusCheckout')return;set({ modal:guestActor()&&['accountSwitcher','createChannel','createCategory','invite','newDM','prompt','customStatus','crop','plusCheckout','ban','suspend'].includes(modal.type)?{type:'guestUpgrade',reason:modal.type==='customStatus'||modal.type==='crop'?'profile':'general'}:modal });},
   closeModal: () => set({ modal: null }),
   openSettings: (settings) => guestActor()&&(settings.kind!=='user'||!['voice','language','accessibility'].includes(settings.section))?set({modal:{type:'guestUpgrade',reason:settings.kind==='user'&&['profile','account','badges'].includes(settings.section)?'profile':'general'}}):set({ settings, modal: null }),
   closeSettings: () => set({ settings: null }),

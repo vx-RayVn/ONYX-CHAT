@@ -1,11 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, writeFile, rm, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import { createHandler } from '../server-handler.js';
 
 test('public pages, app, errors and health consistently disallow hostile framing', async () => {
+  assert.match(await readFile('public/.htaccess','utf8'),/<IfModule mod_headers\.c>[\s\S]*Header always set Strict-Transport-Security "max-age=31536000"/);
   const directory = await mkdtemp(path.join(os.tmpdir(), 'onyx-http-security-'));
   try {
     await writeFile(path.join(directory, 'index.html'), '<html>Public</html>');
@@ -19,6 +20,7 @@ test('public pages, app, errors and health consistently disallow hostile framing
       assert.match(headers['Content-Security-Policy'], /base-uri 'self'/, url);
       assert.match(headers['Content-Security-Policy'], /object-src 'none'/, url);
       assert.equal(headers['X-Content-Type-Options'], 'nosniff');
+      assert.equal(headers['Strict-Transport-Security'], 'max-age=31536000');
     }
   } finally {
     assert.ok(path.basename(directory).startsWith('onyx-http-security-'));

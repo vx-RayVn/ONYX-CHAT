@@ -2452,6 +2452,19 @@ const dict: Dict = {
   "This promotion or subscription is already active.": "此推广或订阅已生效。",
   // In-call noise controls (App 37)
   "Standard noise suppression": "标准降噪",
+  // Account deletion reauthentication (package 40)
+  "Confirm your sign-in again before deleting your account.": "删除账户前，请再次确认登录。",
+  "Guest profiles have no password. Confirm your username to delete this guest profile.": "访客资料没有密码。请确认用户名，以删除此访客资料。",
+  "Confirm your sign-in": "确认登录",
+  "Enter your password again to confirm it is you.": "请再次输入密码以确认身份。",
+  "We will email a code to your account address. Enter it here to confirm it is you.": "我们会向账户邮箱发送验证码。请在此输入以确认身份。",
+  "Enter the sign-in code from your email here. Keep this dialog open.": "请在此输入邮件中的登录验证码。请保持此对话框打开。",
+  "Email code": "邮件验证码",
+  "Confirm a new authenticator code before deleting your account.": "删除账户前，请确认身份验证器中的新验证码。",
+  "Sign-in confirmed. Now confirm your username below.": "登录已确认。现在请在下方确认用户名。",
+  "Send confirmation code": "发送确认码",
+  "Confirm sign-in": "确认登录",
+  "Delete guest profile": "删除访客资料",
 };
 
 export default dict;

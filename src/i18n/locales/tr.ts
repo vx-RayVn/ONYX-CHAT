@@ -2441,6 +2441,19 @@ const dict: Dict = {
   "This promotion or subscription is already active.": "Bu tanıtım veya abonelik zaten etkin.",
   // In-call noise controls (App 37)
   "Standard noise suppression": "Standart gürültü engelleme",
+  // Account deletion reauthentication (package 40)
+  "Confirm your sign-in again before deleting your account.": "Hesabını silmeden önce girişini yeniden doğrula.",
+  "Guest profiles have no password. Confirm your username to delete this guest profile.": "Misafir profillerinin şifresi yoktur. Bu misafir profilini silmek için kullanıcı adını doğrula.",
+  "Confirm your sign-in": "Girişini doğrula",
+  "Enter your password again to confirm it is you.": "Kimliğini doğrulamak için şifreni yeniden gir.",
+  "We will email a code to your account address. Enter it here to confirm it is you.": "Hesabının e-posta adresine bir kod göndereceğiz. Kimliğini doğrulamak için kodu buraya gir.",
+  "Enter the sign-in code from your email here. Keep this dialog open.": "E-postandaki giriş kodunu buraya gir. Bu pencereyi açık tut.",
+  "Email code": "E-posta kodu",
+  "Confirm a new authenticator code before deleting your account.": "Hesabını silmeden önce doğrulayıcı uygulamandan yeni bir kod doğrula.",
+  "Sign-in confirmed. Now confirm your username below.": "Giriş doğrulandı. Şimdi aşağıda kullanıcı adını doğrula.",
+  "Send confirmation code": "Doğrulama kodu gönder",
+  "Confirm sign-in": "Girişi doğrula",
+  "Delete guest profile": "Misafir profilini sil",
 };
 
 export default dict;

@@ -32,6 +32,7 @@ The build regenerates the public website and pins the app stylesheet's integrity
 - Attachments use private storage and temporary signed URLs. Profile media and public server listings are public. New servers are listed by default; owners can disable listing.
 - **Messages and calls are not end-to-end encrypted.** HTTPS/WebRTC transport security does not prevent infrastructure operators from accessing server-side data.
 - Payment entitlement is granted by verified server-side Stripe events, never by a successful browser redirect. Card details go to Stripe Checkout.
+- Account deletion requires a recent password or email-code sign-in and a recent authenticator challenge when 2FA is enabled. Guest deletion uses the current session, a protected own-guest-profile check and username confirmation.
 - Browser noise suppression is included. The proprietary Krisp SDK/model is deliberately absent from this open-source build; selecting enhanced processing falls back to browser processing.
 - The Windows preview is unsigned and has no active automatic update feed. Emulated browser tests do not establish support for every real device.
 

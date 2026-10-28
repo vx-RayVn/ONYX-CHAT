@@ -2433,6 +2433,19 @@ const dict: Dict = {
   "This promotion or subscription is already active.": "Esta promoção ou assinatura já está ativa.",
   // In-call noise controls (App 37)
   "Standard noise suppression": "Supressão de ruído padrão",
+  // Account deletion reauthentication (package 40)
+  "Confirm your sign-in again before deleting your account.": "Confirme seu login novamente antes de excluir sua conta.",
+  "Guest profiles have no password. Confirm your username to delete this guest profile.": "Perfis de visitante não têm senha. Confirme seu nome de usuário para excluir este perfil de visitante.",
+  "Confirm your sign-in": "Confirme seu login",
+  "Enter your password again to confirm it is you.": "Digite sua senha novamente para confirmar sua identidade.",
+  "We will email a code to your account address. Enter it here to confirm it is you.": "Enviaremos um código ao e-mail da sua conta. Digite-o aqui para confirmar sua identidade.",
+  "Enter the sign-in code from your email here. Keep this dialog open.": "Digite aqui o código de login recebido por e-mail. Mantenha esta janela aberta.",
+  "Email code": "Código por e-mail",
+  "Confirm a new authenticator code before deleting your account.": "Confirme um novo código do autenticador antes de excluir sua conta.",
+  "Sign-in confirmed. Now confirm your username below.": "Login confirmado. Agora confirme seu nome de usuário abaixo.",
+  "Send confirmation code": "Enviar código de confirmação",
+  "Confirm sign-in": "Confirmar login",
+  "Delete guest profile": "Excluir perfil de visitante",
 };
 
 export default dict;

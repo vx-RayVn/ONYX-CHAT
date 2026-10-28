@@ -387,6 +387,21 @@
   gap: 18px;
 }
 
+.delete-account-reauth {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  min-width: 0;
+}
+
+.delete-account-reauth h3 {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
 .delete-account-cols h3 {
   margin-bottom: 10px;
   color: var(--text-strong);

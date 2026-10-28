@@ -35,6 +35,7 @@ export async function createHandler({directory=path.join(root,'dist'),config,fet
   const cfg=config??await publicConfig(),cache=new Map();
   if(!/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(cfg.url??'')||!/^sb_publishable_[A-Za-z0-9_-]+$/.test(cfg.key??''))throw new Error('Public ONYX backend configuration missing');
   return async(req,res)=>{
+    res.setHeader('Strict-Transport-Security','max-age=31536000');
     res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','strict-origin-when-cross-origin');
     res.setHeader('X-Frame-Options','DENY');res.setHeader('Content-Security-Policy',"frame-ancestors 'none'; base-uri 'self'; object-src 'none'");
     if(!['GET','HEAD'].includes(req.method)){res.writeHead(405).end();return;}

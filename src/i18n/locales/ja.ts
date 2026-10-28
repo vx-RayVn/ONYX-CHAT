@@ -2451,6 +2451,19 @@ const dict: Dict = {
   "This promotion or subscription is already active.": "このプロモーションまたはサブスクリプションはすでに有効です。",
   // In-call noise controls (App 37)
   "Standard noise suppression": "標準ノイズ抑制",
+  // Account deletion reauthentication (package 40)
+  "Confirm your sign-in again before deleting your account.": "アカウントを削除する前に、もう一度ログインを確認してください。",
+  "Guest profiles have no password. Confirm your username to delete this guest profile.": "ゲストプロフィールにはパスワードがありません。このゲストプロフィールを削除するには、ユーザー名を確認してください。",
+  "Confirm your sign-in": "ログインを確認",
+  "Enter your password again to confirm it is you.": "本人確認のため、パスワードをもう一度入力してください。",
+  "We will email a code to your account address. Enter it here to confirm it is you.": "アカウントのメールアドレスにコードを送信します。本人確認のため、ここに入力してください。",
+  "Enter the sign-in code from your email here. Keep this dialog open.": "メールに届いたログインコードをここに入力してください。この画面は閉じないでください。",
+  "Email code": "メールのコード",
+  "Confirm a new authenticator code before deleting your account.": "アカウントを削除する前に、認証アプリの新しいコードを確認してください。",
+  "Sign-in confirmed. Now confirm your username below.": "ログインを確認しました。下でユーザー名を確認してください。",
+  "Send confirmation code": "確認コードを送信",
+  "Confirm sign-in": "ログインを確認",
+  "Delete guest profile": "ゲストプロフィールを削除",
 };
 
 export default dict;

@@ -2450,6 +2450,19 @@ const dict: Dict = {
   "This promotion or subscription is already active.": "Це просування або передплата вже активні.",
   // In-call noise controls (App 37)
   "Standard noise suppression": "Стандартне шумозаглушення",
+  // Account deletion reauthentication (package 40)
+  "Confirm your sign-in again before deleting your account.": "Перед видаленням облікового запису підтвердь вхід ще раз.",
+  "Guest profiles have no password. Confirm your username to delete this guest profile.": "Гостьові профілі не мають пароля. Підтвердь ім’я користувача, щоб видалити цей гостьовий профіль.",
+  "Confirm your sign-in": "Підтвердь вхід",
+  "Enter your password again to confirm it is you.": "Введи пароль ще раз, щоб підтвердити свою особу.",
+  "We will email a code to your account address. Enter it here to confirm it is you.": "Ми надішлемо код на пошту твого облікового запису. Введи його тут, щоб підтвердити свою особу.",
+  "Enter the sign-in code from your email here. Keep this dialog open.": "Введи тут код входу з листа. Залиш це вікно відкритим.",
+  "Email code": "Код із листа",
+  "Confirm a new authenticator code before deleting your account.": "Перед видаленням облікового запису підтвердь новий код із застосунку-автентифікатора.",
+  "Sign-in confirmed. Now confirm your username below.": "Вхід підтверджено. Тепер підтвердь ім’я користувача нижче.",
+  "Send confirmation code": "Надіслати код підтвердження",
+  "Confirm sign-in": "Підтвердити вхід",
+  "Delete guest profile": "Видалити гостьовий профіль",
 };
 
 export default dict;

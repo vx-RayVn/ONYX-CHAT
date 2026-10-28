@@ -19,6 +19,7 @@ import {verifyAuthenticator,type Authenticator} from './mfa';
 import {guestActor} from '../store/ui';
 import {requireCaptcha,captchaError} from '../components/auth/Captcha';
 import {birthDateIssue} from '../lib/signupPolicy';
+import type {DeletionProof} from '../lib/deletionReauth';
 
 export type AuthStatus = 'starting' | 'signedOut' | 'loading' | 'ready' | 'recovery' | 'mfa' | 'error' | 'suspended';
 
@@ -413,23 +414,29 @@ export async function signOut() {
 export type DeleteAccountResult =
   | { ok: true }
   | { ok: false; reason: 'owns_servers'; servers: { id: string; name: string }[] }
-  | { ok: false; reason: 'confirmation' | 'suspended' | 'failed'; message: string };
+  | { ok: false; reason: 'confirmation' | 'suspended' | 'reauthentication' | 'failed'; message: string };
 
 /**
  * Deletes the signed-in account for good (Edge Function "delete-account": files,
  * then the account; messages stay as "Deleted user"). Afterwards this device is
  * signed out and the sign-in screen says what happened.
  */
-export async function deleteAccount(username: string): Promise<DeleteAccountResult> {
+export async function deleteAccount(username: string,proof?:DeletionProof): Promise<DeleteAccountResult> {
+  const actor=useAuth.getState().session?.user.id;
+  const reauth=()=>({ok:false as const,reason:'reauthentication' as const,message:t('Confirm your sign-in again before deleting your account.')});
+  if(!actor||(!guestActor()&&!proof)||proof&&proof.userId!==actor)return reauth();
   // Send what is still queued first – after the deletion nothing can be saved any more.
   flushDebounced();
   await Promise.race([whenIdle(), new Promise((r) => setTimeout(r, 3000))]);
-  const { error } = await supabase().functions.invoke('delete-account', { body: { username } });
+  if(useAuth.getState().session?.user.id!==actor)return reauth();
+  const { error } = await supabase().functions.invoke('delete-account', { body: { username },...(proof?{headers:{Authorization:'Bearer '+proof.accessToken}}:{}) });
+  if(useAuth.getState().session?.user.id!==actor)return {ok:false,reason:'failed',message:t('The active account changed in another tab. Please try again.')};
   if (error) {
     const body: { error?: string; servers?: { id: string; name: string }[] } =
       error instanceof FunctionsHttpError ? await error.context.json().catch(() => ({})) : {};
     if (body.error === 'owns_servers') return { ok: false, reason: 'owns_servers', servers: body.servers ?? [] };
     if (body.error === 'confirmation_mismatch') return { ok: false, reason: 'confirmation', message: t('The username doesn’t match.') };
+    if (body.error === 'reauthentication_required') return reauth();
     if (body.error === 'suspended') return { ok: false, reason: 'suspended', message: t('This account is suspended and can’t be deleted by yourself. Contact the ONYX team.') };
     if (body.error === 'unauthorized') return { ok: false, reason: 'failed', message: t('Your session has expired. Sign in again and try once more.') };
     if (body.error) return { ok: false, reason: 'failed', message: t('Your account could not be deleted. It still exists – please try again in a moment.') };
